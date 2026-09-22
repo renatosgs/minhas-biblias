@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="ouro-real">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Minhas Bíblias PLUS - 27 Bíblias em PDF, 40 Temas & IA Teológica</title>
+  <meta name="description" content="27 Bíblias em PDF, 40 temas exclusivos, 10 vozes femininas e IA Teológica 100% offline.">
+  <meta name="theme-color" content="#0c0d12">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      --font-serif: "Cinzel", "Georgia", "Merriweather", serif;
+      --font-reading: "Georgia", "Merriweather", serif;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px; --radius-xl: 28px;
+      --reading-font-size: 19px; --reading-line-height: 1.8;
+      --bg-base: #0c0d12; --bg-surface: #141721; --bg-elevated: #1b2030;
+      --text-main: #f5f3ef; --text-muted: #9ba3b5; --primary: #d4af37;
+      --primary-glow: rgba(212,175,55,0.35); --accent: #f3e5ab; --border-color: #2c3347;
+      --reader-bg: #12141c; --reader-text: #f1eee7; --nav-bg: rgba(20,23,33,0.85); --shelf-wood: #1b2030;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html, body { width:100%; min-height:100%; font-family:var(--font-sans); background:var(--bg-base); color:var(--text-main); transition:background 0.3s, color 0.3s; }
+    ::-webkit-scrollbar { width:6px; height:6px; }
+    ::-webkit-scrollbar-thumb { background:var(--border-color); border-radius:99px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--primary); }
+
+    #app { display:flex; flex-direction:column; min-height:100vh; padding-bottom:76px; }
+
+    /* Header Nativo iOS / macOS */
+    .native-header {
+      position:sticky; top:0; z-index:90; background:var(--nav-bg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border-color); padding:calc(var(--safe-top) + 10px) 16px 12px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .brand-area { display:flex; align-items:center; gap:10px; cursor:pointer; }
+    .brand-icon { width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg, var(--primary), var(--accent)); color:#000; font-weight:900; font-size:18px; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 12px var(--primary-glow); }
+    .brand-title { font-size:18px; font-weight:800; display:flex; align-items:center; gap:6px; }
+    .brand-badge { font-size:10px; font-weight:800; padding:2px 6px; border-radius:99px; background:var(--primary); color:#000; }
+    .header-actions { display:flex; align-items:center; gap:6px; }
+
+    .native-btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:5px; padding:7px 12px; border-radius:var(--radius-md);
+      border:1px solid var(--border-color); background:var(--bg-surface); color:var(--text-main); font-size:12.5px; font-weight:600; cursor:pointer; transition:all 0.2s; user-select:none;
+    }
+    .native-btn:hover { background:var(--bg-elevated); border-color:var(--primary); transform:translateY(-1px); }
+    .native-btn:active { transform:scale(0.96); }
+    .native-btn-primary { background:var(--primary); color:#000; border-color:var(--primary); box-shadow:0 2px 10px var(--primary-glow); font-weight:700; }
+    .native-btn-primary:hover { background:var(--accent); border-color:var(--accent); }
+    .native-btn-icon { width:36px; height:36px; padding:0; border-radius:50%; }
+
+    /* Ondas Sonoras Animadas */
+    .sound-waves { display:flex; align-items:center; gap:2px; height:12px; }
+    .sound-wave-bar { width:2.5px; height:100%; background:currentColor; border-radius:2px; animation:wave 1.2s infinite ease-in-out; }
+    .sound-wave-bar:nth-child(2) { animation-delay:0.2s; }
+    .sound-wave-bar:nth-child(3) { animation-delay:0.4s; }
+    @keyframes wave { 0%,100%{height:3px} 50%{height:12px} }
+
+    /* Robô Marcador Banner */
+    .tracker-card {
+      margin:12px 16px 0 16px; background:linear-gradient(135deg, var(--bg-surface), var(--bg-elevated));
+      border:1px solid var(--border-color); border-left:4px solid var(--primary); border-radius:var(--radius-lg);
+      padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    }
+    .tracker-content { display:flex; align-items:center; gap:12px; }
+    .robot-icon { font-size:24px; width:40px; height:40px; border-radius:12px; background:var(--bg-elevated); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; }
+    .tracker-text h4 { font-size:13px; font-weight:700; color:var(--primary); }
+    .tracker-text p { font-size:12px; color:var(--text-muted); }
+    .tracker-text .snippet { font-style:italic; color:var(--text-main); font-size:11.5px; margin-top:2px; }
+
+    /* Barra Curadora & Filtros */
+    .curator-bar { margin:12px 16px 0 16px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; padding:10px 14px; border-radius:var(--radius-lg); background:var(--bg-surface); border:1px solid var(--border-color); }
+    .search-box { position:relative; flex:1; min-width:200px; }
+    .search-box input { width:100%; background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:8px 12px 8px 34px; color:var(--text-main); font-size:13px; outline:none; }
+    .search-box input:focus { border-color:var(--primary); }
+    .search-box svg { position:absolute; left:10px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--text-muted); }
+    
+    .filter-chips { display:flex; gap:5px; overflow-x:auto; padding-bottom:2px; }
+    .chip { padding:5px 10px; border-radius:99px; background:var(--bg-elevated); border:1px solid var(--border-color); color:var(--text-muted); font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
+    .chip.active, .chip:hover { background:var(--primary); color:#000; border-color:var(--primary); }
+
+    .layout-bar { display:flex; background:var(--bg-elevated); padding:3px; border-radius:var(--radius-md); border:1px solid var(--border-color); gap:3px; }
+    .layout-btn { border:none; background:transparent; color:var(--text-muted); padding:5px 8px; border-radius:6px; cursor:pointer; display:flex; align-items:center; }
+    .layout-btn.active { background:var(--bg-surface); color:var(--primary); }
+
+    /* Layouts das 27 Bíblias */
+    .bibles-container { padding:14px 16px 24px 16px; }
+    .layout-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px; }
+    .bible-card { background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:14px; display:flex; flex-direction:column; justify-content:space-between; gap:10px; transition:all 0.25s; }
+    .bible-card:hover { transform:translateY(-3px); border-color:var(--primary); box-shadow:0 8px 20px rgba(0,0,0,0.2), 0 0 12px var(--primary-glow); }
+    .bible-card-header { display:flex; align-items:flex-start; gap:12px; }
+    .cover-art { width:52px; height:70px; border-radius:7px; background:linear-gradient(135deg, var(--bg-elevated), var(--border-color)); box-shadow:-2px 3px 7px rgba(0,0,0,0.3); display:flex; flex-direction:column; align-items:center; justify-content:center; border-left:3px solid var(--primary); flex-shrink:0; }
+    .cover-sigla { font-size:12px; font-weight:800; color:#fff; }
+    .cover-num { font-size:9px; color:rgba(255,255,255,0.7); }
+    .bible-info { flex:1; }
+    .bible-num { font-size:10px; font-weight:700; color:var(--primary); text-transform:uppercase; }
+    .bible-title { font-size:14.5px; font-weight:700; color:var(--text-main); line-height:1.3; }
+    .bible-cat { font-size:10.5px; padding:2px 7px; border-radius:99px; background:var(--bg-elevated); border:1px solid var(--border-color); color:var(--text-muted); display:inline-block; margin-top:3px; }
+    .bible-desc { font-size:11.5px; color:var(--text-muted); line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .card-footer { display:flex; align-items:center; justify-content:space-between; gap:6px; padding-top:8px; border-top:1px solid var(--border-color); }
+    .pdf-badge { font-size:11px; color:var(--text-muted); }
+    .pdf-badge.ok { color:#10b981; font-weight:700; }
+
+    /* Layout Estante 3D */
+    .layout-shelf { display:flex; flex-direction:column; gap:20px; }
+    .shelf-books { display:flex; align-items:flex-end; gap:6px; overflow-x:auto; padding:10px 6px 0 6px; }
+    .shelf-spine { width:46px; height:180px; border-radius:5px 5px 0 0; background:linear-gradient(90deg, #161820 0%, #282c3f 50%, #161820 100%); border-top:2px solid var(--primary); display:flex; flex-direction:column; justify-content:space-between; align-items:center; padding:8px 4px; cursor:pointer; flex-shrink:0; transition:all 0.2s; }
+    .shelf-spine:hover { transform:translateY(-10px); box-shadow:0 8px 18px rgba(0,0,0,0.5); }
+    .shelf-title { writing-mode:vertical-rl; transform:rotate(180deg); font-size:10.5px; font-weight:700; color:var(--text-main); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-height:115px; }
+    .shelf-sigla { font-size:10px; font-weight:800; color:var(--primary); }
+    .shelf-wood { height:14px; background:linear-gradient(180deg, var(--shelf-wood), #000); border-top:2px solid var(--primary); border-radius:3px; }
+
+    /* Layout Lista */
+    .layout-list { display:flex; flex-direction:column; gap:6px; }
+    .list-row { background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:10px 14px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+    .list-row:hover { background:var(--bg-elevated); border-color:var(--primary); }
+
+    /* Leitor Bíblico */
+    #reader-view { display:none; position:fixed; inset:0; z-index:95; background:var(--reader-bg); color:var(--reader-text); flex-direction:column; }
+    #reader-view.active { display:flex; }
+    .reader-nav { display:flex; align-items:center; justify-content:space-between; padding:calc(var(--safe-top) + 8px) 14px 10px 14px; border-bottom:1px solid var(--border-color); background:var(--nav-bg); backdrop-filter:blur(20px); gap:6px; }
+    .reader-scroll { flex:1; overflow-y:auto; padding:20px 18px 100px 18px; max-width:800px; margin:0 auto; width:100%; }
+    .bible-verse { font-family:var(--font-reading); font-size:var(--reading-font-size); line-height:var(--reading-line-height); margin-bottom:10px; padding:3px 6px; border-radius:4px; }
+    .bible-verse.speaking { background:var(--primary-glow); border-left:3px solid var(--primary); }
+    .tts-bar { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:98; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:99px; padding:7px 14px; display:flex; align-items:center; gap:8px; box-shadow:0 8px 24px rgba(0,0,0,0.5); backdrop-filter:blur(16px); }
+
+    /* Modais */
+    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.65); backdrop-filter:blur(10px); z-index:100; display:none; align-items:center; justify-content:center; padding:16px; }
+    .modal-backdrop.active { display:flex; }
+    .native-modal { background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-xl); width:100%; max-width:600px; max-height:85vh; display:flex; flex-direction:column; box-shadow:0 18px 45px rgba(0,0,0,0.5); overflow:hidden; }
+    .modal-header { padding:14px 18px; border-bottom:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; background:var(--bg-elevated); font-weight:700; }
+    .modal-body { padding:16px; overflow-y:auto; flex:1; }
+    .modal-footer { padding:12px 18px; border-top:1px solid var(--border-color); display:flex; align-items:center; justify-content:flex-end; gap:8px; background:var(--bg-elevated); }
+
+    /* Grid de Vozes e Temas */
+    .grid-2col { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:10px; }
+    .voice-card, .theme-card { background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:10px; cursor:pointer; transition:all 0.2s; }
+    .voice-card.selected, .theme-card.active { border-color:var(--primary); box-shadow:0 0 0 2px var(--primary); }
+    .theme-palette { height:26px; border-radius:5px; display:flex; overflow:hidden; margin-bottom:6px; }
+    .theme-palette span { flex:1; }
+
+    /* Tab Bar Mobile */
+    .native-tab-bar { position:fixed; bottom:0; left:0; right:0; height:62px; padding-bottom:var(--safe-bottom); background:var(--nav-bg); backdrop-filter:blur(20px); border-top:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-around; z-index:85; }
+    .tab-btn { display:flex; flex-direction:column; align-items:center; gap:3px; background:transparent; border:none; color:var(--text-muted); font-size:10.5px; font-weight:600; cursor:pointer; flex:1; }
+    .tab-btn.active, .tab-btn:hover { color:var(--primary); }
+
+    .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-50px); background:var(--bg-elevated); color:var(--text-main); border:1px solid var(--primary); padding:9px 18px; border-radius:99px; font-size:13px; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,0.4); z-index:200; opacity:0; transition:all 0.3s; }
+    .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Top Bar -->
+  <header class="native-header">
+    <div class="brand-area" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <div class="brand-icon">✝</div>
+      <div class="brand-title"><span>Minhas Bíblias</span><span class="brand-badge">PLUS</span></div>
+    </div>
+    <div class="header-actions">
+      <button class="native-btn" id="mute-btn" onclick="app.toggleMute()">
+        <div class="sound-waves"><span class="sound-wave-bar"></span><span class="sound-wave-bar"></span><span class="sound-wave-bar"></span></div>
+        <span style="font-size:11px;">Som</span>
+      </button>
+      <button class="native-btn" onclick="app.openModal('modal-voices')">
+        <span>🎙️</span><span id="voice-label" style="font-size:11px;">Sara</span>
+      </button>
+      <button class="native-btn" onclick="app.openModal('modal-themes')">
+        <span>🎨</span><span style="font-size:11px;">40 Temas</span>
+      </button>
+      <button class="native-btn native-btn-icon" onclick="app.openModal('modal-settings')">⚙️</button>
+    </div>
+  </header>
+
+  <!-- Robô Marcador -->
+  <div id="tracker-card" class="tracker-card" style="display:none;">
+    <div class="tracker-content">
+      <div class="robot-icon">🤖</div>
+      <div class="tracker-text">
+        <h4>Robô Guardião de Leitura</h4>
+        <p id="tracker-info">Você parou na...</p>
+        <div id="tracker-snippet" class="snippet"></div>
+      </div>
+    </div>
+    <button class="native-btn native-btn-primary" onclick="app.resumeFromRobot()">Retomar Agora</button>
+  </div>
+
+  <!-- Bot Organizador & Filtros -->
+  <div class="curator-bar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="search-input" placeholder="Buscar entre as 27 bíblias por nome, sigla ou categoria...">
+    </div>
+    <div class="filter-chips">
+      <button class="chip active" data-f="all">Todas (27)</button>
+      <button class="chip" data-f="formais">Formais</button>
+      <button class="chip" data-f="dinamicas">Dinâmicas</button>
+      <button class="chip" data-f="estudo">Estudo</button>
+      <button class="chip" data-f="historicas">Originais/Históricas</button>
+      <button class="chip" data-f="pdf">Com PDF</button>
+    </div>
+    <div class="layout-bar">
+      <button class="layout-btn active" data-l="grid" title="Cards 3D">⊞</button>
+      <button class="layout-btn" data-l="shelf" title="Estante Real">▥</button>
+      <button class="layout-btn" data-l="list" title="Lista Nativa">☰</button>
+    </div>
+  </div>
+
+  <!-- Bíblias Container -->
+  <main id="bibles-area" class="bibles-container layout-grid"></main>
+
+  <!-- Leitor Bíblico -->
+  <div id="reader-view">
+    <div class="reader-nav">
+      <button class="native-btn" onclick="app.closeReader()">‹ Voltar</button>
+      <div style="text-align:center;">
+        <div id="reader-title" style="font-size:14px; font-weight:800; color:var(--primary);">Bíblia</div>
+        <select id="chapter-select" class="native-btn" style="padding:2px 8px; font-size:11.5px; margin-top:2px;">
+          <option value="salmo23">Salmos 23 (O Bom Pastor)</option>
+          <option value="joao1">João 1:1-14 (O Verbo Eterno)</option>
+          <option value="romanos8">Romanos 8:31-39 (Mais que Vencedores)</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:5px;">
+        <button id="pdf-toggle-btn" class="native-btn" style="display:none;" onclick="app.togglePdfView()">Ver PDF</button>
+        <button class="native-btn native-btn-primary" onclick="app.openLogosAI()">✨ Logos AI</button>
+      </div>
+    </div>
+    <div id="reader-scroll" class="reader-scroll"><div id="verses-area"></div></div>
+    <div id="pdf-container" style="display:none; width:100%; height:100%;"><iframe id="pdf-frame" style="width:100%; height:100%; border:none;"></iframe></div>
+    <div class="tts-bar">
+      <button class="native-btn native-btn-primary native-btn-icon" onclick="app.playAudio()">▶</button>
+      <button class="native-btn native-btn-icon" onclick="app.stopAudio()">⏹</button>
+      <button class="native-btn" onclick="app.openModal('modal-voices')">🎙️ Voz</button>
+      <button class="native-btn" onclick="app.openModal('modal-settings')">Aa</button>
+    </div>
+  </div>
+
+  <!-- Modal Logos AI -->
+  <div id="modal-ai" class="modal-backdrop">
+    <div class="native-modal">
+      <div class="modal-header"><span>✨ Logos AI: Teologia & Exegese</span><button class="native-btn native-btn-icon" onclick="app.closeModal('modal-ai')">✕</button></div>
+      <div id="ai-body" class="modal-body"></div>
+      <div class="modal-footer">
+        <button class="native-btn" onclick="app.speakAI()">🔊 Ouvir Resumo em Áudio</button>
+        <button class="native-btn native-btn-primary" onclick="app.closeModal('modal-ai')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 10 Vozes -->
+  <div id="modal-voices" class="modal-backdrop">
+    <div class="native-modal">
+      <div class="modal-header"><span>🎙️ 10 Vozes Femininas Especialistas</span><button class="native-btn native-btn-icon" onclick="app.closeModal('modal-voices')">✕</button></div>
+      <div class="modal-body"><div id="voices-list" class="grid-2col"></div></div>
+      <div class="modal-footer"><button class="native-btn native-btn-primary" onclick="app.closeModal('modal-voices')">Confirmar Voz</button></div>
+    </div>
+  </div>
+
+  <!-- Modal 40 Temas -->
+  <div id="modal-themes" class="modal-backdrop">
+    <div class="native-modal">
+      <div class="modal-header"><span>🎨 40 Temas Visuais Exclusivos</span><button class="native-btn native-btn-icon" onclick="app.closeModal('modal-themes')">✕</button></div>
+      <div class="modal-body"><div id="themes-list" class="grid-2col"></div></div>
+      <div class="modal-footer"><button class="native-btn native-btn-primary" onclick="app.closeModal('modal-themes')">Fechar</button></div>
+    </div>
+  </div>
+
+  <!-- Modal Configurações -->
+  <div id="modal-settings" class="modal-backdrop">
+    <div class="native-modal">
+      <div class="modal-header"><span>⚙️ Ajustes de Leitura & Som</span><button class="native-btn native-btn-icon" onclick="app.closeModal('modal-settings')">✕</button></div>
+      <div class="modal-body">
+        <div style="margin-bottom:16px;">
+          <div style="font-size:12px; font-weight:700; margin-bottom:6px;">TAMANHO DA LETRA (<span id="font-val">19px</span>)</div>
+          <input type="range" min="14" max="34" value="19" style="width:100%; accent-color:var(--primary);" oninput="app.setFontSize(this.value)">
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:12px; font-weight:700; margin-bottom:6px;">TIPOGRAFIA BÍBLICA</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <button class="native-btn" onclick="app.setFont('\'Georgia\', serif')">Georgia Nobre</button>
+            <button class="native-btn" onclick="app.setFont('\'Cinzel\', serif')">Cinzel Bíblica</button>
+            <button class="native-btn" onclick="app.setFont('\'Merriweather\', serif')">Merriweather</button>
+            <button class="native-btn" onclick="app.setFont('var(--font-sans)')">Inter Moderna</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px; font-weight:700; margin-bottom:6px;">AMBIÊNCIA SONORA DEVOCIONAL</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <button class="native-btn" onclick="sound.setMode('harpa')">🎵 Harpa Celestial</button>
+            <button class="native-btn" onclick="sound.setMode('chuva')">🌧️ Chuva de Bênçãos</button>
+            <button class="native-btn" onclick="sound.setMode('sinos')">🔔 Sinos do Templo</button>
+            <button class="native-btn" onclick="sound.setMode('santuario')">🕊️ Santuário Sereno</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"><button class="native-btn native-btn-primary" onclick="app.closeModal('modal-settings')">Concluído</button></div>
+    </div>
+  </div>
+
+  <!-- Tab Bar Mobile -->
+  <nav class="native-tab-bar">
+    <button class="tab-btn active" onclick="app.closeReader(); window.scrollTo({top:0, behavior:'smooth'})"><span>📖</span><span>Estante</span></button>
+    <button class="tab-btn" onclick="app.openReader('arc')"><span>📑</span><span>Leitor</span></button>
+    <button class="tab-btn" onclick="app.openLogosAI()"><span>✨</span><span>Logos AI</span></button>
+    <button class="tab-btn" onclick="app.openModal('modal-voices')"><span>🎙️</span><span>Vozes (10)</span></button>
+    <button class="tab-btn" onclick="app.openModal('modal-themes')"><span>🎨</span><span>40 Temas</span></button>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+</div>
+
+<script>
+// 1. BANCO INDEXEDDB OFFLINE (PDFs)
+class DB {
+  constructor() { this.name = "MinhasBibliasDB"; }
+  async getDB() {
+    return new Promise(res => {
+      const r = indexedDB.open(this.name, 1);
+      r.onupgradeneeded = e => { if (!e.target.result.objectStoreNames.contains("pdfs")) e.target.result.createObjectStore("pdfs", {keyPath:"id"}); };
+      r.onsuccess = e => res(e.target.result);
+      r.onerror = () => res(null);
+    });
+  }
+  async savePDF(id, blob, name) {
+    const db = await this.getDB();
+    return new Promise(res => {
+      const tx = db.transaction("pdfs", "readwrite");
+      tx.objectStore("pdfs").put({ id, blob, name });
+      tx.oncomplete = () => res(true); tx.onerror = () => res(false);
+    });
+  }
+  async getPDF(id) {
+    const db = await this.getDB();
+    return new Promise(res => {
+      const tx = db.transaction("pdfs", "readonly");
+      const r = tx.objectStore("pdfs").get(id);
+      r.onsuccess = () => res(r.result || null); r.onerror = () => res(null);
+    });
+  }
+  async getLoadedIds() {
+    const db = await this.getDB();
+    return new Promise(res => {
+      const tx = db.transaction("pdfs", "readonly");
+      const r = tx.objectStore("pdfs").getAllKeys();
+      r.onsuccess = () => res(r.result || []); r.onerror = () => res([]);
+    });
+  }
+}
+const db = new DB();
+
+// 2. SINTETIZADOR WEB AUDIO API (SOM DEVOCIONAL)
+class SoundEngine {
+  constructor() {
+    this.ctx = null; this.muted = JSON.parse(localStorage.getItem("mb_mute") || "true");
+    this.mode = localStorage.getItem("mb_sound_mode") || "harpa"; this.timer = null;
+  }
+  init() {
+    if (!this.ctx) {
+      const Audio = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new Audio();
+      this.gain = this.ctx.createGain();
+      this.gain.gain.value = this.muted ? 0 : 0.25;
+      this.gain.connect(this.ctx.destination);
+    }
+    if (this.ctx.state === "suspended") this.ctx.resume();
+  }
+  playTone(freq, dur = 2.2) {
+    if (!this.ctx || this.muted) return;
+    const osc = this.ctx.createOscillator();
+    const g = this.ctx.createGain();
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0.001, this.ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.15, this.ctx.currentTime + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + dur);
+    osc.connect(g); g.connect(this.gain);
+    osc.start(); osc.stop(this.ctx.currentTime + dur);
+  }
+  toggleMute() {
+    this.init(); this.muted = !this.muted;
+    localStorage.setItem("mb_mute", JSON.stringify(this.muted));
+    if (this.gain) this.gain.gain.value = this.muted ? 0 : 0.25;
+    if (!this.muted && !this.timer) this.startLoop();
+    return this.muted;
+  }
+  setMode(m) { this.mode = m; localStorage.setItem("mb_sound_mode", m); app.toast(`Ambiência: ${m}`); }
+  startLoop() {
+    const scales = [261.6, 293.6, 329.6, 392.0, 440.0, 523.2];
+    this.timer = setInterval(() => {
+      if (this.muted) return;
+      if (this.mode === "harpa") this.playTone(scales[Math.floor(Math.random()*scales.length)], 2.5);
+      else if (this.mode === "sinos") this.playTone([216, 432, 528, 639][Math.floor(Math.random()*4)], 3.8);
+      else if (this.mode === "chuva") this.playTone(350 + Math.random()*500, 0.2);
+      else if (this.mode === "santuario") [220, 330, 440].forEach((f, i) => setTimeout(() => this.playTone(f, 3.2), i * 150));
+    }, 1800);
+  }
+}
+const sound = new SoundEngine();
+
+// 3. 10 VOZES FEMININAS (WEB SPEECH API)
+const VOICES = [
+  { id:"sara", name:"Sara", timbre:"Serena & Clássica", pitch:1.0, rate:0.95, desc:"Tom equilibrado e límpido para leitura bíblica contínua.", preview:"A paz do Senhor! Sou a voz Sara, serena e clássica para sua leitura diária." },
+  { id:"rebeca", name:"Rebeca", timbre:"Doce & Devocional", pitch:1.15, rate:0.88, desc:"Tom suave para meditação, oração e recolhimento.", preview:"Graça e paz! Eu sou Rebeca, trazendo doçura e consolo ao seu coração." },
+  { id:"ester", name:"Ester", timbre:"Real & Majestosa", pitch:0.94, rate:0.90, desc:"Entonação nobre e solene para profecias e livros reais.", preview:"Saudações reais! Sou Ester, com leitura nobre e imponente das Escrituras." },
+  { id:"rute", name:"Rute", timbre:"Acolhedora & Tranquila", pitch:1.08, rate:0.92, desc:"Tom afetuoso e acolhedor para salmos e narrativas de família.", preview:"A paz seja convosco! Sou Rute, com voz calorosa e leal." },
+  { id:"debora", name:"Débora", timbre:"Firme & Eloquente", pitch:0.90, rate:1.05, desc:"Vigorosa e convicta para provérbios, epístolas e exortações.", preview:"Desperte em retidão! Sou Débora, com firmeza e sabedoria." },
+  { id:"maria", name:"Maria", timbre:"Maternal & Pacífica", pitch:1.05, rate:0.85, desc:"Terna e pausada para conforto nos momentos de aflição.", preview:"Minha alma engrandece ao Senhor. Sou a voz Maria, trazendo paz e ternura." },
+  { id:"miria", name:"Miriã", timbre:"Vibrante & Inspiradora", pitch:1.22, rate:1.02, desc:"Jubilosa e festiva para cânticos de vitória e gratidão.", preview:"Cantemos ao Senhor com júbilo! Sou Miriã, celebrando as grandes maravilhas." },
+  { id:"ana", name:"Ana", timbre:"Contemplativa & Oração", pitch:0.98, rate:0.82, desc:"Tom sussurrado e reverente para intercessão silenciosa.", preview:"No silêncio da alma, Deus ouve a oração sincera. Sou a voz Ana." },
+  { id:"priscila", name:"Priscila", timbre:"Didática & Acadêmica", pitch:1.00, rate:1.08, desc:"Clara e analítica para estudos e teologia bíblica profunda.", preview:"Instruídos no caminho da verdade! Sou Priscila, com clareza didática." },
+  { id:"lidia", name:"Lídia", timbre:"Sofisticada & Harmônica", pitch:1.08, rate:0.96, desc:"Timbre aveludado e elegante para leitura nobre e refinada.", preview:"Com coração aberto à Palavra! Sou Lídia, com harmonia refinada." }
+];
+
+class VoiceEngine {
+  constructor() { this.synth = window.speechSynthesis; this.selected = localStorage.getItem("mb_voice") || "sara"; }
+  getProfile(id) { return VOICES.find(v => v.id === id) || VOICES[0]; }
+  getPtFemale() {
+    const list = this.synth ? this.synth.getVoices() : [];
+    const pt = list.filter(v => v.lang.startsWith("pt"));
+    return pt.find(v => /maria|luciana|francisca|female|mulher/i.test(v.name)) || pt[0] || list[0] || null;
+  }
+  preview(id) {
+    if (!this.synth) return;
+    this.synth.cancel();
+    const p = this.getProfile(id);
+    const u = new SpeechSynthesisUtterance(p.preview);
+    const v = this.getPtFemale();
+    if (v) u.voice = v;
+    u.pitch = p.pitch; u.rate = p.rate; u.lang = "pt-BR";
+    this.synth.speak(u);
+  }
+  speak(text, onBoundary, onEnd) {
+    if (!this.synth) return;
+    this.synth.cancel();
+    const p = this.getProfile(this.selected);
+    const u = new SpeechSynthesisUtterance(text);
+    const v = this.getPtFemale();
+    if (v) u.voice = v;
+    u.pitch = p.pitch; u.rate = p.rate; u.lang = "pt-BR";
+    if (onBoundary) u.onboundary = onBoundary;
+    u.onend = onEnd;
+    this.synth.speak(u);
+  }
+  stop() { if (this.synth) this.synth.cancel(); }
+}
+const voice = new VoiceEngine();
+
+// 4. AS 27 BÍBLIAS & PASSAGENS
+const BIBLES = [["arc", 1, "ARC", "Almeida Revista e Corrigida", "Equivalência Formal", "1898", "#d4af37", "A mais reverenciada tradução da língua portuguesa, rica em solenidade."], ["nvi", 2, "NVI", "Nova Versão Internacional", "Equivalência Dinâmica", "2001", "#38bdf8", "Equilíbrio primoroso entre fidelidade aos originais e fluidez moderna."], ["acf", 3, "ACF", "Almeida Corrigida Fiel", "Equivalência Formal", "1994", "#10b981", "Baseada estritamente no Textus Receptus com máximo rigor literal."], ["ara", 4, "ARA", "Almeida Revista e Atualizada", "Equivalência Formal", "1959", "#818cf8", "Padrão acadêmico consagrado em seminários com alta erudição."], ["naa", 5, "NAA", "Nova Almeida Atualizada", "Equivalência Formal", "2017", "#2dd4bf", "Revisão erudita sem arcaísmos, mantendo o estilo clássico de Almeida."], ["nvt", 6, "NVT", "Nova Versão Transformadora", "Equivalência Dinâmica", "2016", "#fb7185", "Comunica a verdade eterna com incrível clareza e impacto emocional."], ["bkj", 7, "BKJ", "King James Fiel 1611 em Português", "Equivalência Formal", "2018", "#f59e0b", "Majestosa tradução baseada nos textos autorizados de Cambridge."], ["ntlh", 8, "NTLH", "Nova Tradução na Linguagem de Hoje", "Equivalência Dinâmica", "2000", "#22d3ee", "Vocabulário simples e direto, ideal para compreensão imediata."], ["bv", 9, "BV", "Bíblia Viva", "Equivalência Dinâmica", "1981", "#a3e635", "Paráfrase cativante com tom caloroso e devocional."], ["msg", 10, "MSG", "A Mensagem (Eugene Peterson)", "Equivalência Dinâmica", "2002", "#fb923c", "Tradução literária vigorosa que resgata o ritmo visceral da fé."], ["genebra", 11, "B-GEN", "Bíblia de Genebra (Estudo)", "Bíblias de Estudo", "1560", "#eab308", "Herdeira da Reforma com notas teológicas fundamentadas na graça."], ["thompson", 12, "B-THOMP", "Bíblia Thompson de Referência", "Bíblias de Estudo", "1908", "#d4af37", "Renomado sistema de cadeias temáticas com 100.000 referências."], ["dake", 13, "B-DAKE", "Bíblia de Estudo Dake", "Bíblias de Estudo", "1963", "#f59e0b", "Monumental estudo de Finis Dake com milhares de notas explicativas."], ["jerusalem", 14, "BJ", "Bíblia de Jerusalém", "Bíblias de Estudo", "1973", "#38bdf8", "Rigor arqueológico e exegese literária da École Biblique."], ["vulgata", 15, "VULG", "Biblia Sacra Vulgata Latina", "Históricas & Originais", "382", "#c084fc", "Monumento latino de São Jerônimo que moldou séculos da cristandade."], ["lxx", 16, "LXX", "Septuaginta (Grego Koiné)", "Históricas & Originais", "-250", "#60a5fa", "O Antigo Testamento em grego utilizado pelos apóstolos no NT."], ["peshitta", 17, "PESH", "Peshitta Siríaca Arameia", "Históricas & Originais", "150", "#fbbf24", "Texto aramaico milenar preservado pelas igrejas orientais."], ["inter-heb", 18, "INT-HEB", "Interlinear Hebraico-Português", "Históricas & Originais", "2015", "#14b8a6", "Texto Massorético com correspondência literal palavra por palavra."], ["inter-grc", 19, "INT-GRC", "Interlinear Grego-Português", "Históricas & Originais", "2016", "#a855f7", "Novo Testamento Nestle-Aland 28 com análise morfológica estrita."], ["ferrara", 20, "FERR", "Bíblia de Ferrara Sefardita", "Históricas & Originais", "1553", "#eab308", "Rara tradução sefardita de 1553 publicada para os judeus ibéricos."], ["arqueologica", 21, "B-ARQ", "Bíblia das Descobertas Arqueológicas", "Bíblias de Estudo", "2006", "#d97706", "Notas históricas, relevos e escavações do Antigo Oriente."], ["pastoral", 22, "PAST", "Bíblia Sagrada Edição Pastoral", "Bíblias de Estudo", "1990", "#4ade80", "Comentários de reflexão pastoral e vida comunitária."], ["teb", 23, "TEB", "Tradução Ecumênica da Bíblia", "Bíblias de Estudo", "1975", "#818cf8", "Consenso filológico entre eruditos católicos, protestantes e ortodoxos."], ["oracao", 24, "B-ORA", "Bíblia da Oração & Devoção", "Bíblias de Estudo", "2010", "#f472b6", "Focada na intimidade divina, intercessão e modelos de súplica."], ["cronologica", 25, "B-CRON", "Bíblia em Ordem Cronológica", "Bíblias de Estudo", "2003", "#f59e0b", "Textos e salmos dispostos na sequência histórica em que ocorreram."], ["kjv1611", 26, "KJV-1611", "King James Version 1611 (English)", "Históricas & Originais", "1611", "#ef4444", "O padrão áureo da literatura clássica da língua inglesa."], ["reina-valera", 27, "RVR-1960", "Reina-Valera 1960 (Español)", "Históricas & Originais", "1960", "#0ea5e9", "A versão mais querida e respeitada em todo o mundo hispânico."]].map(([id,num,sigla,name,cat,ano,cor,desc]) => ({id,num,sigla,name,cat,ano,cor,desc}));
+
+const THEMES = [["ouro-real", "1. Ouro Real & Obsidiana", "#0c0d12", "#141721", "#1b2030", "#f5f3ef", "#d4af37", "#f3e5ab"], ["meia-noite", "2. Meia-Noite Sagrada", "#070b19", "#0d152d", "#132044", "#e2e8f0", "#38bdf8", "#fbbf24"], ["pergaminho", "3. Pergaminho Antigo", "#f4ede1", "#fbf7ee", "#ffffff", "#2d241e", "#8b5a2b", "#b8860b"], ["esmeralda", "4. Esmeralda do Templo", "#061811", "#0b261c", "#12382a", "#e6f4ee", "#10b981", "#fbbf24"], ["purpura", "5. Púrpura Imperial", "#14091f", "#210f33", "#2f1747", "#f3e8ff", "#c084fc", "#f59e0b"], ["ceu-siao", "6. Céu de Sião", "#f0f7ff", "#ffffff", "#e0effe", "#0c2340", "#0284c7", "#0ea5e9"], ["rosa-sarom", "7. Rosa de Sarom", "#1b0d12", "#2b141e", "#3b1c2a", "#ffe4e6", "#f43f5e", "#fbcfe8"], ["carvalho", "8. Carvalho de Manre", "#161710", "#23251a", "#323526", "#f4f3ea", "#a3b18a", "#ddb892"], ["sinai", "9. Monte Sinai Terracota", "#1f130f", "#2e1c16", "#3e271f", "#fbeae4", "#e07a5f", "#f4a261"], ["galileia", "10. Mar da Galileia", "#05151e", "#092230", "#0e3145", "#e0f2fe", "#06b6d4", "#38bdf8"], ["soli-deo", "11. Soli Deo Gloria", "#fafafa", "#ffffff", "#f4f4f5", "#18181b", "#ca8a04", "#eab308"], ["hermom", "12. Neve do Monte Hermom", "#f8fafc", "#ffffff", "#f1f5f9", "#0f172a", "#64748b", "#94a3b8"], ["basalto", "13. Basalto OLED Negro", "#000000", "#0a0a0a", "#141414", "#f8fafc", "#eab308", "#f59e0b"], ["amendoeira", "14. Flor da Amendoeira", "#1a1215", "#281b21", "#37262e", "#fdf2f8", "#ec4899", "#f472b6"], ["cedro", "15. Cedros do Líbano", "#0c150e", "#142318", "#1d3223", "#eaf5ec", "#22c55e", "#b45309"], ["lapis-lazuli", "16. Lápis-Lazúli Real", "#0b1026", "#121b3e", "#1a2656", "#eef2ff", "#4f46e5", "#fbbf24"], ["mirra", "17. Mirra & Incenso", "#17120e", "#261f17", "#362c21", "#fcf5ee", "#d97706", "#f59e0b"], ["eden", "18. Manhã no Éden", "#0c1815", "#132823", "#1c3831", "#ecfdf5", "#14b8a6", "#84cc16"], ["rocha", "19. Rocha Eterna", "#121316", "#1d1f24", "#272a32", "#f1f5f9", "#94a3b8", "#cbd5e1"], ["alvorecer", "20. Alvorecer da Ressurreição", "#180f14", "#271921", "#37232f", "#fff1f2", "#fb7185", "#fdba74"], ["arca", "21. Bronze da Arca", "#18130d", "#282016", "#382d1f", "#fdf8ee", "#b45309", "#f59e0b"], ["veu", "22. Véu Escarlate", "#1a080a", "#2a0e12", "#3b1419", "#fef2f2", "#dc2626", "#f87171"], ["estrela-davi", "23. Estrela de Davi", "#080e1c", "#0f1a32", "#162547", "#e0f2fe", "#2563eb", "#38bdf8"], ["mana", "24. Maná Celeste & Mel", "#fbf8f1", "#ffffff", "#f5eedc", "#332616", "#d97706", "#b45309"], ["getsemani", "25. Noite no Getsêmani", "#0c1110", "#141c1a", "#1d2725", "#e2e8f0", "#5eead4", "#94a3b8"], ["fogo", "26. Fogo Pentecostal", "#180a06", "#27120a", "#381a0e", "#fff7ed", "#ea580c", "#fbbf24"], ["jordao", "27. Águas do Rio Jordão", "#05161a", "#0a242a", "#0f333c", "#ecfeff", "#0891b2", "#22d3ee"], ["vigia", "28. Torre de Vigia Neônica", "#080a0f", "#10141e", "#171d2b", "#f8fafc", "#00f0ff", "#3b82f6"], ["perola", "29. Pérola de Grande Valor", "#f5f3f7", "#ffffff", "#ece7f0", "#261d30", "#8b5cf6", "#a855f7"], ["veredas", "30. Veredas Antigas de Couro", "#191410", "#27201a", "#372d24", "#f7f1eb", "#a2673d", "#d4a373"], ["monastico", "31. Silêncio Monástico", "#f8f9fa", "#ffffff", "#e9ecef", "#212529", "#495057", "#343a40"], ["calice", "32. Cálice da Nova Aliança", "#18060d", "#260b15", "#37101e", "#fdf2f6", "#9f1239", "#fda4af"], ["luz-mundo", "33. Luz do Mundo Solar", "#fffdfa", "#ffffff", "#fef3c7", "#451a03", "#f59e0b", "#d97706"], ["aguas-vivas", "34. Fonte de Águas Vivas", "#06131c", "#0c1e2b", "#122a3b", "#e0f7fa", "#0284c7", "#38bdf8"], ["tabernaculo", "35. Tabernáculo no Deserto", "#181510", "#27221b", "#373026", "#f9f6f0", "#ca8a04", "#eab308"], ["aurora", "36. Aurora Cósmica", "#090514", "#120b24", "#1d1238", "#f5f3ff", "#8b5cf6", "#10b981"], ["leao", "37. Leão de Judá", "#140f09", "#221910", "#312417", "#fef9f1", "#d97706", "#fbbf24"], ["sal-terra", "38. Sal da Terra & Giz", "#f1f3f5", "#ffffff", "#e5e7eb", "#1e293b", "#3b82f6", "#2563eb"], ["vinha", "39. A Vinha Verdadeira", "#110b17", "#1c1226", "#281936", "#f5f3ff", "#7c3aed", "#10b981"], ["alfa-omega", "40. Alfa e Ômega (Monocromo)", "#0a0a0a", "#141414", "#202020", "#ffffff", "#ffffff", "#d4d4d4"]].map(([id,name,base,surf,elev,text,prim,acc]) => ({id,name,base,surf,elev,text,prim,acc}));
+
+const PASSAGES = {
+  salmo23: {
+    title: "Salmos 23",
+    verses: [
+      "1 O Senhor é o meu pastor; nada me faltará.",
+      "2 Deitar-me faz em verdes pastos, guia-me mansamente a águas mansas e tranquilas.",
+      "3 Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome.",
+      "4 Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam.",
+      "5 Preparas uma mesa perante mim na presença dos meus inimigos, unges a minha cabeça com óleo, o meu cálice transborda.",
+      "6 Certamente que a bondade e a misericórdia me seguirão todos os dias da minha vida; e habitarei na Casa do Senhor por longos dias."
+    ],
+    terms: ["YHWH Rohi (יְהוָה רֹעִי) - O Senhor é meu Pastor", "Chesed (חֶסֶד) - Amor leal e pactual", "Nefesh (נֶפֶשׁ) - Alma e vida restaurada"],
+    cross: ["João 10:11 (O Bom Pastor)", "Isaías 40:11", "Apocalipse 7:17"],
+    context: "Composto por Davi expressando confiança incondicional sob a soberania de Deus."
+  },
+  joao1: {
+    title: "João 1:1-14",
+    verses: [
+      "1 No princípio era o Verbo, e o Verbo estava com Deus, e o Verbo era Deus.",
+      "2 Ele estava no princípio com Deus.",
+      "3 Todas as coisas foram feitas por ele, e sem ele nada do que foi feito se fez.",
+      "4 Nele estava a vida, e a vida era a luz dos homens.",
+      "5 E a luz resplandece nas trevas, e as trevas não a prevaleceram.",
+      "14 E o Verbo se fez carne e habitou entre nós, cheio de graça e de verdade."
+    ],
+    terms: ["Logos (Λόγος) - A Palavra Eterna e Criadora", "Eskēnōsen (ἐσκήνωσεν) - Tabernaculou entre nós", "Charis (Χάris) - Graça divina suprema"],
+    cross: ["Gênesis 1:1", "Colossenses 1:16", "Hebreus 1:1-3"],
+    context: "Prólogo do Evangelho de João proclamando a divindade e encarnação do Filho de Deus."
+  },
+  romanos8: {
+    title: "Romanos 8:31-39",
+    verses: [
+      "31 Se Deus é por nós, quem será contra nós?",
+      "32 Aquele que nem mesmo a seu próprio Filho poupou, como não nos dará com ele todas as coisas?",
+      "34 É Cristo quem morreu, ou antes quem ressuscitou, o qual está à direita de Deus e intercede por nós.",
+      "35 Quem nos separará do amor de Cristo? A tribulação, a angústia, o perigo, ou a espada?",
+      "37 Mas em todas estas coisas somos mais do que vencedores, por aquele que nos amou.",
+      "39 Nada nos poderá separar do amor de Deus, que está em Cristo Jesus nosso Senhor!"
+    ],
+    terms: ["Hypernikōmen (ὑπερνικῶμεν) - Supervencedores", "Agape (Ἀγάπη) - Amor incondicional", "Entygchanei (ἐντυγχάνει) - Intercessão contínua"],
+    cross: ["Isaías 50:8-9", "Salmos 118:6", "1 João 4:4"],
+    context: "Carta de Paulo aos Romanos declarando a segurança eterna da justificação pela fé."
+  }
+};
+
+// 5. CONTROLADOR DA APLICAÇÃO
+class App {
+  constructor() {
+    this.currentTheme = localStorage.getItem("mb_theme") || "ouro-real";
+    this.currentLayout = localStorage.getItem("mb_layout") || "grid";
+    this.currentBible = BIBLES[0]; this.currentPassage = "salmo23";
+    this.loadedPdfs = []; this.filter = "all"; this.search = ""; this.pdfUrl = null;
+  }
+  async init() {
+    this.applyTheme(this.currentTheme);
+    this.loadedPdfs = await db.getLoadedIds();
+    this.renderBibles(); this.renderVoices(); this.renderThemes();
+    this.checkTracker(); this.setupEvents();
+  }
+  applyTheme(id) {
+    const t = THEMES.find(x => x.id === id) || THEMES[0];
+    this.currentTheme = id; localStorage.setItem("mb_theme", id);
+    const r = document.documentElement;
+    r.style.setProperty("--bg-base", t.base);
+    r.style.setProperty("--bg-surface", t.surf);
+    r.style.setProperty("--bg-elevated", t.elev);
+    r.style.setProperty("--text-main", t.text);
+    r.style.setProperty("--primary", t.prim);
+    r.style.setProperty("--primary-glow", t.prim + "40");
+    r.style.setProperty("--accent", t.acc);
+    r.style.setProperty("--border-color", t.surf);
+    r.style.setProperty("--nav-bg", t.surf + "dd");
+    r.style.setProperty("--reader-bg", t.base);
+    r.style.setProperty("--reader-text", t.text);
+    r.style.setProperty("--shelf-wood", t.elev);
+  }
+  renderBibles() {
+    const area = document.getElementById("bibles-area");
+    let list = [...BIBLES];
+    if (this.search) {
+      const q = this.search.toLowerCase();
+      list = list.filter(b => b.name.toLowerCase().includes(q) || b.sigla.toLowerCase().includes(q) || b.cat.toLowerCase().includes(q));
+    }
+    if (this.filter === "formais") list = list.filter(b => b.cat.includes("Formal"));
+    else if (this.filter === "dinamicas") list = list.filter(b => b.cat.includes("Dinâmica"));
+    else if (this.filter === "estudo") list = list.filter(b => b.cat.includes("Estudo"));
+    else if (this.filter === "historicas") list = list.filter(b => b.cat.includes("Histórica"));
+    else if (this.filter === "pdf") list = list.filter(b => this.loadedPdfs.includes(b.id));
+
+    area.className = `bibles-container layout-${this.currentLayout}`;
+    if (this.currentLayout === "grid") {
+      area.innerHTML = list.map(b => {
+        const has = this.loadedPdfs.includes(b.id);
+        return `
+          <div class="bible-card">
+            <div class="bible-card-header">
+              <div class="cover-art" style="border-left-color:${b.cor}"><span class="cover-sigla">${b.sigla}</span><span class="cover-num">Nº ${b.num}</span></div>
+              <div class="bible-info"><div class="bible-num">Bíblia ${b.num} de 27</div><h3 class="bible-title">${b.name}</h3><span class="bible-cat">${b.cat}</span></div>
+            </div>
+            <p class="bible-desc">${b.desc}</p>
+            <div class="card-footer">
+              <span class="pdf-badge ${has ? 'ok' : ''}">${has ? '✓ PDF Carregado' : '○ Sem PDF'}</span>
+              <div style="display:flex; gap:5px;">
+                <label class="native-btn" style="padding:4px 8px; font-size:11px; cursor:pointer;">
+                  Upload PDF <input type="file" accept=".pdf" style="display:none;" onchange="app.uploadPDF('${b.id}', this.files[0])">
+                </label>
+                <button class="native-btn native-btn-primary" onclick="app.openReader('${b.id}')">Ler</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    } else if (this.currentLayout === "shelf") {
+      area.innerHTML = `
+        <div class="layout-shelf">
+          <div class="shelf-books">
+            ${list.map(b => `
+              <div class="shelf-spine" style="border-top-color:${b.cor}" onclick="app.openReader('${b.id}')">
+                <span class="shelf-sigla">${b.sigla}</span>
+                <span class="shelf-title">${b.name}</span>
+                <span style="font-size:8px; color:var(--text-muted);">#${b.num}</span>
+              </div>
+            `).join("")}
+          </div>
+          <div class="shelf-wood"></div>
+        </div>
+      `;
+    } else if (this.currentLayout === "list") {
+      area.innerHTML = list.map(b => `
+        <div class="list-row" onclick="app.openReader('${b.id}')">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-weight:800; color:${b.cor};">#${b.num}</span>
+            <div><div style="font-weight:700; font-size:13.5px;">${b.name} (${b.sigla})</div><div style="font-size:11.5px; color:var(--text-muted);">${b.cat} • ${b.ano}</div></div>
+          </div>
+          <button class="native-btn native-btn-primary" style="padding:4px 10px;">Abrir</button>
+        </div>
+      `).join("");
+    }
+  }
+  async uploadPDF(id, file) {
+    if (!file) return;
+    this.toast(`Gravando ${file.name} no IndexedDB...`);
+    await db.savePDF(id, file, file.name);
+    this.loadedPdfs = await db.getLoadedIds();
+    this.renderBibles();
+    this.toast("PDF salvo com sucesso 100% offline!");
+  }
+  async openReader(id) {
+    const b = BIBLES.find(x => x.id === id) || BIBLES[0];
+    this.currentBible = b;
+    document.getElementById("reader-title").textContent = `${b.name} (${b.sigla})`;
+    const p = PASSAGES[this.currentPassage];
+    document.getElementById("verses-area").innerHTML = p.verses.map((v, i) => `<div class="bible-verse" id="verse-${i}">${v}</div>`).join("");
+
+    const rec = await db.getPDF(id);
+    const toggleBtn = document.getElementById("pdf-toggle-btn");
+    if (rec && rec.blob) {
+      toggleBtn.style.display = "inline-flex";
+      if (this.pdfUrl) URL.revokeObjectURL(this.pdfUrl);
+      this.pdfUrl = URL.createObjectURL(rec.blob);
+      document.getElementById("pdf-frame").src = this.pdfUrl;
+    } else {
+      toggleBtn.style.display = "none";
+      document.getElementById("pdf-container").style.display = "none";
+      document.getElementById("reader-scroll").style.display = "block";
+    }
+
+    document.getElementById("reader-view").classList.add("active");
+    localStorage.setItem("mb_tracker", JSON.stringify({ bibleId: b.id, bibleName: b.name, passageKey: this.currentPassage, title: p.title, snippet: p.verses[0], time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) }));
+    this.checkTracker();
+    if (navigator.vibrate) navigator.vibrate(15);
+  }
+  closeReader() { voice.stop(); document.getElementById("reader-view").classList.remove("active"); }
+  togglePdfView() {
+    const frame = document.getElementById("pdf-container");
+    const txt = document.getElementById("reader-scroll");
+    const btn = document.getElementById("pdf-toggle-btn");
+    if (frame.style.display === "none") {
+      frame.style.display = "block"; txt.style.display = "none"; btn.textContent = "Ver Texto";
+    } else {
+      frame.style.display = "none"; txt.style.display = "block"; btn.textContent = "Ver PDF";
+    }
+  }
+  playAudio() {
+    const p = PASSAGES[this.currentPassage];
+    const full = p.verses.join(" ");
+    this.toast(`Lendo com voz de ${voice.getProfile(voice.selected).name}...`);
+    voice.speak(full, (e) => {
+      const idx = e.charIndex;
+      let sum = 0;
+      p.verses.forEach((v, i) => {
+        sum += v.length + 1;
+        if (idx < sum) {
+          document.querySelectorAll(".bible-verse").forEach(el => el.classList.remove("speaking"));
+          const row = document.getElementById(`verse-${i}`);
+          if (row) { row.classList.add("speaking"); row.scrollIntoView({behavior:"smooth", block:"center"}); }
+        }
+      });
+    }, () => {
+      document.querySelectorAll(".bible-verse").forEach(el => el.classList.remove("speaking"));
+      this.toast("Leitura em áudio concluída.");
+    });
+  }
+  stopAudio() { voice.stop(); document.querySelectorAll(".bible-verse").forEach(el => el.classList.remove("speaking")); }
+  openLogosAI() {
+    const p = PASSAGES[this.currentPassage];
+    const b = this.currentBible;
+    document.getElementById("ai-body").innerHTML = `
+      <div style="background:var(--bg-elevated); padding:12px; border-radius:12px; margin-bottom:12px; border-left:4px solid var(--primary);">
+        <h4 style="color:var(--primary); font-size:13px; margin-bottom:4px;">📖 Resumo Executivo (${p.title})</h4>
+        <p style="font-size:12.5px; line-height:1.5;">O texto de ${p.title} manifesta sob a tradição da ${b.name} a suprema segurança da graça e providência divina, proporcionando consolo infalível ao leitor.</p>
+      </div>
+      <div style="background:var(--bg-elevated); padding:12px; border-radius:12px; margin-bottom:12px;">
+        <h4 style="color:var(--primary); font-size:13px; margin-bottom:4px;">🏛️ Contexto Histórico-Gramatical</h4>
+        <p style="font-size:12.5px; line-height:1.5;">${p.context}</p>
+      </div>
+      <div style="background:var(--bg-elevated); padding:12px; border-radius:12px; margin-bottom:12px;">
+        <h4 style="color:var(--primary); font-size:13px; margin-bottom:4px;">📜 Termos no Original (Hebraico/Grego)</h4>
+        <div>${p.terms.map(t => `<div style="font-size:11.5px; font-weight:700; color:var(--accent); margin:2px 0;">• ${t}</div>`).join("")}</div>
+      </div>
+      <div style="background:var(--bg-elevated); padding:12px; border-radius:12px; margin-bottom:12px;">
+        <h4 style="color:var(--primary); font-size:13px; margin-bottom:4px;">🔗 Referências Cruzadas</h4>
+        <div>${p.cross.map(c => `<span style="font-size:11px; padding:2px 6px; background:var(--bg-surface); border-radius:6px; margin:2px; display:inline-block;">${c}</span>`).join("")}</div>
+      </div>
+      <div style="background:var(--bg-elevated); padding:12px; border-radius:12px; border:1px dashed var(--primary);">
+        <h4 style="color:var(--primary); font-size:13px; margin-bottom:4px;">🙏 Oração & Devoção Prática</h4>
+        <p style="font-size:12px; font-style:italic;">"Pai Eterno, que Tua Palavra seja o refúgio inabalável da nossa fé e a bússola que ilumina nossas escolhas em cada jornada. Amém."</p>
+      </div>
+    `;
+    this.openModal("modal-ai");
+  }
+  speakAI() {
+    const text = document.getElementById("ai-body").innerText;
+    this.toast(`Logos AI: Lendo com a voz de ${voice.getProfile(voice.selected).name}...`);
+    voice.speak(text);
+  }
+  checkTracker() {
+    const t = JSON.parse(localStorage.getItem("mb_tracker") || "null");
+    const card = document.getElementById("tracker-card");
+    if (t) {
+      card.style.display = "flex";
+      document.getElementById("tracker-info").textContent = `Você parou na ${t.bibleName}, em ${t.title} (${t.time}).`;
+      document.getElementById("tracker-snippet").textContent = `"${t.snippet.substring(0, 80)}..."`;
+    } else {
+      card.style.display = "none";
+    }
+  }
+  resumeFromRobot() {
+    const t = JSON.parse(localStorage.getItem("mb_tracker") || "null");
+    if (t) { this.currentPassage = t.passageKey; this.openReader(t.bibleId); }
+  }
+  renderVoices() {
+    document.getElementById("voices-list").innerHTML = VOICES.map(v => `
+      <div class="voice-card ${v.id === voice.selected ? 'selected' : ''}" id="vc-${v.id}" onclick="app.setVoice('${v.id}')">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:14px;">${v.name}</strong>
+          <span style="font-size:10px; color:var(--primary);">${v.timbre}</span>
+        </div>
+        <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">${v.desc}</p>
+        <button class="native-btn" style="width:100%; padding:4px;" onclick="event.stopPropagation(); voice.preview('${v.id}')">🔊 Testar Voz</button>
+      </div>
+    `).join("");
+  }
+  setVoice(id) {
+    voice.selected = id; localStorage.setItem("mb_voice", id);
+    document.querySelectorAll(".voice-card").forEach(el => el.classList.remove("selected"));
+    const sel = document.getElementById(`vc-${id}`); if (sel) sel.classList.add("selected");
+    document.getElementById("voice-label").textContent = voice.getProfile(id).name;
+    this.toast(`Voz feminina '${voice.getProfile(id).name}' ativada!`);
+  }
+  renderThemes() {
+    document.getElementById("themes-list").innerHTML = THEMES.map(t => `
+      <div class="theme-card ${t.id === this.currentTheme ? 'active' : ''}" onclick="app.applyTheme('${t.id}')">
+        <div class="theme-palette">
+          <span style="background:${t.base};"></span><span style="background:${t.surf};"></span>
+          <span style="background:${t.prim};"></span><span style="background:${t.acc};"></span>
+        </div>
+        <div style="font-size:12px; font-weight:700;">${t.name}</div>
+      </div>
+    `).join("");
+  }
+  setFontSize(val) { document.documentElement.style.setProperty("--reading-font-size", `${val}px`); document.getElementById("font-val").textContent = `${val}px`; }
+  setFont(f) { document.documentElement.style.setProperty("--font-reading", f); }
+  toggleMute() { const m = sound.toggleMute(); this.toast(m ? "Som silenciado." : "Som devocional ativado!"); }
+  openModal(id) { document.getElementById(id).classList.add("active"); }
+  closeModal(id) { document.getElementById(id).classList.remove("active"); }
+  toast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2800);
+  }
+  setupEvents() {
+    document.getElementById("search-input").addEventListener("input", e => { this.search = e.target.value; this.renderBibles(); });
+    document.querySelectorAll(".chip").forEach(c => {
+      c.addEventListener("click", () => {
+        document.querySelectorAll(".chip").forEach(x => x.classList.remove("active"));
+        c.classList.add("active"); this.filter = c.dataset.f; this.renderBibles();
+      });
+    });
+    document.querySelectorAll(".layout-btn").forEach(b => {
+      b.addEventListener("click", () => {
+        document.querySelectorAll(".layout-btn").forEach(x => x.classList.remove("active"));
+        b.classList.add("active"); this.currentLayout = b.dataset.l; this.renderBibles();
+      });
+    });
+    document.getElementById("chapter-select").addEventListener("change", e => {
+      this.currentPassage = e.target.value; this.openReader(this.currentBible.id);
+    });
+    document.querySelectorAll(".modal-backdrop").forEach(m => {
+      m.addEventListener("click", e => { if (e.target === m) m.classList.remove("active"); });
+    });
+  }
+}
+
+const app = new App();
+window.addEventListener("DOMContentLoaded", () => app.init());
+</script>
+</body>
+</html>
