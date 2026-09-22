@@ -2,7 +2,7 @@
 <html lang="pt-BR" data-theme="ouro-real">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Minhas Bíblias PLUS — Edição Biblioteca de Luxo</title>
   <meta name="description" content="Estante de luxo para 27 Bíblias em PDF, 40 temas, 10 vozes femininas e IA Teológica offline.">
   <meta name="theme-color" content="#0b0c10">
@@ -113,7 +113,7 @@
     .shelf-books-row {
       display:flex; align-items:flex-end; gap:8px; overflow-x:auto; padding:14px 12px 0 12px;
       scroll-snap-type:x mandatory;
-    }}
+    }
     .shelf-plank {
       height:18px; background:linear-gradient(180deg, var(--shelf-wood-1), var(--shelf-wood-2));
       border-top:3px solid var(--primary); border-radius:4px; box-shadow:0 8px 20px rgba(0,0,0,0.6);
@@ -197,7 +197,7 @@
       position:absolute; top:0; right:32px; width:18px; height:64px; background:linear-gradient(180deg, #dc2626, #7f1d1d);
       border-radius:0 0 6px 6px; box-shadow:0 4px 12px rgba(0,0,0,0.6); z-index:15; cursor:pointer;
       display:flex; align-items:flex-end; justify-content:center; padding-bottom:6px; color:#fff; font-size:10px;
-      transition:transform 0.2s;
+      transition:transform 0.2s; border:none;
     }
     .kindle-satin-ribbon:hover { transform:translateY(6px); }
 
@@ -205,7 +205,7 @@
       position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:20;
       background:var(--bg-surface); border:1px solid var(--border-color); border-radius:99px;
       padding:8px 18px; display:flex; align-items:center; gap:12px; box-shadow:0 12px 36px rgba(0,0,0,0.6), 0 0 16px var(--primary-glow);
-      backdrop-filter:blur(20px);
+      backdrop-filter:blur(20px); max-width:calc(100vw - 24px); flex-wrap:wrap; justify-content:center;
     }
 
     .paper-filter-btn {
@@ -228,7 +228,7 @@
     .modal-head { padding:16px 20px; border-bottom:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; background:var(--bg-elevated); }
     .modal-head h3 { font-family:var(--font-serif); font-size:16px; font-weight:800; color:var(--text-main); display:flex; align-items:center; gap:8px; }
     .modal-body { padding:20px; overflow-y:auto; flex:1; }
-    .modal-foot { padding:14px 20px; border-top:1px solid var(--border-color); display:flex; align-items:center; justify-content:flex-end; gap:8px; background:var(--bg-elevated); }
+    .modal-foot { padding:14px 20px; border-top:1px solid var(--border-color); display:flex; align-items:center; justify-content:flex-end; gap:8px; background:var(--bg-elevated); flex-wrap:wrap; }
 
     .form-group { margin-bottom:16px; }
     .form-label { display:block; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-muted); margin-bottom:6px; }
@@ -268,7 +268,8 @@
       background:var(--bg-elevated); color:var(--text-main); border:1px solid var(--primary);
       padding:10px 22px; border-radius:99px; font-size:13.5px; font-weight:700;
       box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 16px var(--primary-glow); z-index:200; opacity:0;
-      transition:all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+      transition:all 0.3s cubic-bezier(0.32, 0.72, 0, 1); pointer-events:none; max-width:calc(100vw - 32px);
+      text-align:center;
     }
     .luxury-toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
   </style>
@@ -287,22 +288,22 @@
     </div>
 
     <div class="actions-group">
-      <button class="gold-btn" id="ambient-sound-btn" onclick="app.toggleSoundMute()" title="Som Devocional Sagrado">
+      <button class="gold-btn" id="ambient-sound-btn" onclick="app.toggleSoundMute()" title="Som Devocional Sagrado" aria-label="Alternar som devocional">
         <div class="sound-waves"><span class="sound-wave-bar"></span><span class="sound-wave-bar"></span><span class="sound-wave-bar"></span></div>
         <span>Som</span>
       </button>
 
-      <button class="gold-btn" onclick="app.openModal('modal-themes')" title="40 Temas de Cores">
+      <button class="gold-btn" onclick="app.openModal('modal-themes')" title="40 Temas de Cores" aria-label="Abrir 40 temas de cores">
         <span>🎨</span>
         <span>Temas (40)</span>
       </button>
 
-      <button class="gold-btn" onclick="app.openModal('modal-voices')" title="10 Vozes Femininas">
+      <button class="gold-btn" onclick="app.openModal('modal-voices')" title="10 Vozes Femininas" aria-label="Abrir 10 vozes femininas">
         <span>🎙️</span>
         <span id="active-voice-name">Sara</span>
       </button>
 
-      <button class="gold-btn gold-btn-icon" onclick="app.openModal('modal-settings')" title="Configurações">⚙️</button>
+      <button class="gold-btn gold-btn-icon" onclick="app.openModal('modal-settings')" title="Configurações" aria-label="Abrir configurações">⚙️</button>
     </div>
   </header>
 
@@ -324,7 +325,7 @@
       <input type="text" id="shelf-search" placeholder="Buscar entre as suas 27 bíblias personalizadas...">
     </div>
 
-    <div style="display:flex; gap:6px; align-items:center;">
+    <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
       <button class="gold-btn" onclick="app.organizerBotSort('name')">Bot: A-Z</button>
       <button class="gold-btn" onclick="app.organizerBotSort('recent')">Bot: Recentes</button>
       <div class="view-toggle-bar">
@@ -340,7 +341,7 @@
   <div id="reader-screen">
     <div class="kindle-top-bar">
       <button class="gold-btn" onclick="app.closeReader()">‹ Sair do Leitor</button>
-      
+
       <div class="kindle-title-area">
         <div id="kindle-bible-name" class="kindle-book-title">Bíblia</div>
         <div id="kindle-page-info" class="kindle-page-info">Página 1 • Leitura Ativa</div>
@@ -353,24 +354,24 @@
     </div>
 
     <div class="pdf-viewport">
-      <div class="kindle-satin-ribbon" onclick="app.toggleRibbonBookmark()" title="Marcar Página">🔖</div>
-      <iframe id="pdf-viewer-frame" class="pdf-frame-element"></iframe>
+      <button class="kindle-satin-ribbon" onclick="app.toggleRibbonBookmark()" title="Marcar Página" aria-label="Marcar página com fita">🔖</button>
+      <iframe id="pdf-viewer-frame" class="pdf-frame-element" title="Leitor de PDF"></iframe>
     </div>
 
     <div class="kindle-bottom-controls">
       <div style="display:flex; align-items:center; gap:6px;">
-        <button class="paper-filter-btn active" style="background:#fff;" onclick="app.setPdfPaper('white')" title="Luz Pura"></button>
-        <button class="paper-filter-btn" style="background:#f4ecd8;" onclick="app.setPdfPaper('ivory')" title="Papel Marfim"></button>
-        <button class="paper-filter-btn" style="background:#e8d5b7;" onclick="app.setPdfPaper('sepia')" title="Sépia Nobre"></button>
-        <button class="paper-filter-btn" style="background:#1a1a1a;" onclick="app.setPdfPaper('oled')" title="Basalto Noturno OLED"></button>
-        <button class="paper-filter-btn" style="background:#dbeef0;" onclick="app.setPdfPaper('sage')" title="Sálvia Descanso"></button>
+        <button class="paper-filter-btn active" style="background:#fff;" onclick="app.setPdfPaper('white', this)" title="Luz Pura" aria-label="Papel branco puro"></button>
+        <button class="paper-filter-btn" style="background:#f4ecd8;" onclick="app.setPdfPaper('ivory', this)" title="Papel Marfim" aria-label="Papel marfim"></button>
+        <button class="paper-filter-btn" style="background:#e8d5b7;" onclick="app.setPdfPaper('sepia', this)" title="Sépia Nobre" aria-label="Papel sépia"></button>
+        <button class="paper-filter-btn" style="background:#1a1a1a;" onclick="app.setPdfPaper('oled', this)" title="Basalto Noturno OLED" aria-label="Modo noturno OLED"></button>
+        <button class="paper-filter-btn" style="background:#dbeef0;" onclick="app.setPdfPaper('sage', this)" title="Sálvia Descanso" aria-label="Papel sálvia"></button>
         <button class="gold-btn" style="padding:4px 8px; font-size:11px;" onclick="app.toggleAutoPdfPaper()" id="auto-paper-btn">Modo Auto</button>
       </div>
 
       <div style="width:1px; height:18px; background:var(--border-color);"></div>
 
-      <button class="gold-btn gold-btn-primary gold-btn-icon" onclick="app.speakCurrentBookAudio()" title="Ouvir em Áudio">▶</button>
-      <button class="gold-btn gold-btn-icon" onclick="app.stopAudio()" title="Parar Áudio">⏹</button>
+      <button class="gold-btn gold-btn-primary gold-btn-icon" onclick="app.speakCurrentBookAudio()" title="Ouvir em Áudio" aria-label="Ouvir em áudio">▶</button>
+      <button class="gold-btn gold-btn-icon" onclick="app.stopAudio()" title="Parar Áudio" aria-label="Parar áudio">⏹</button>
       <button class="gold-btn" onclick="app.openModal('modal-voices')">🎙️ Voz</button>
     </div>
   </div>
@@ -380,36 +381,36 @@
     <div class="luxury-modal-window">
       <div class="modal-head">
         <h3 id="modal-edit-title">Adicionar Bíblia em PDF</h3>
-        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-edit-bible')">✕</button>
+        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-edit-bible')" aria-label="Fechar">✕</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="edit-slot-index">
 
         <div class="form-group">
-          <label class="form-label">Arquivo da Bíblia em PDF</label>
-          <input type="file" id="edit-pdf-file" accept=".pdf" class="form-input">
+          <label class="form-label" for="edit-pdf-file">Arquivo da Bíblia em PDF</label>
+          <input type="file" id="edit-pdf-file" accept=".pdf,application/pdf" class="form-input">
           <p id="edit-file-current" style="font-size:11.5px; color:var(--primary); margin-top:4px;"></p>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Nome da Bíblia (Como você deseja chamar)</label>
+          <label class="form-label" for="edit-bible-title">Nome da Bíblia (Como você deseja chamar)</label>
           <input type="text" id="edit-bible-title" class="form-input" placeholder="Ex: Bíblia Thompson, Minha ARC de Estudo, Bíblia de Genebra...">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Sigla da Capa (2 a 5 letras)</label>
-          <input type="text" id="edit-bible-sigla" class="form-input" placeholder="Ex: ARC, NVI, GEN, BKJ...">
+          <label class="form-label" for="edit-bible-sigla">Sigla da Capa (2 a 5 letras)</label>
+          <input type="text" id="edit-bible-sigla" class="form-input" placeholder="Ex: ARC, NVI, GEN, BKJ..." maxlength="5">
         </div>
 
         <div class="form-group">
           <label class="form-label">Acabamento do Couro da Capa</label>
           <div class="leather-swatches">
-            <button type="button" class="swatch-btn active" style="background:linear-gradient(135deg, #450a0a, #7f1d1d);" data-gradient="linear-gradient(135deg, #450a0a, #7f1d1d)" data-accent="#ef4444" onclick="app.selectLeatherSwatch(this)"></button>
-            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #1e1b4b, #312e81);" data-gradient="linear-gradient(135deg, #1e1b4b, #312e81)" data-accent="#6366f1" onclick="app.selectLeatherSwatch(this)"></button>
-            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #022c22, #065f46);" data-gradient="linear-gradient(135deg, #022c22, #065f46)" data-accent="#10b981" onclick="app.selectLeatherSwatch(this)"></button>
-            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #271406, #592e0c);" data-gradient="linear-gradient(135deg, #271406, #592e0c)" data-accent="#d97706" onclick="app.selectLeatherSwatch(this)"></button>
-            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #09090b, #27272a);" data-gradient="linear-gradient(135deg, #09090b, #27272a)" data-accent="#e4e4e7" onclick="app.selectLeatherSwatch(this)"></button>
-            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #583f06, #996e0a);" data-gradient="linear-gradient(135deg, #583f06, #996e0a)" data-accent="#fbbf24" onclick="app.selectLeatherSwatch(this)"></button>
+            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #450a0a, #7f1d1d);" data-gradient="linear-gradient(135deg, #450a0a, #7f1d1d)" data-accent="#ef4444" onclick="app.selectLeatherSwatch(this)" aria-label="Couro vermelho"></button>
+            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #1e1b4b, #312e81);" data-gradient="linear-gradient(135deg, #1e1b4b, #312e81)" data-accent="#6366f1" onclick="app.selectLeatherSwatch(this)" aria-label="Couro azul real"></button>
+            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #022c22, #065f46);" data-gradient="linear-gradient(135deg, #022c22, #065f46)" data-accent="#10b981" onclick="app.selectLeatherSwatch(this)" aria-label="Couro esmeralda"></button>
+            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #271406, #592e0c);" data-gradient="linear-gradient(135deg, #271406, #592e0c)" data-accent="#d97706" onclick="app.selectLeatherSwatch(this)" aria-label="Couro caramelo"></button>
+            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #09090b, #27272a);" data-gradient="linear-gradient(135deg, #09090b, #27272a)" data-accent="#e4e4e7" onclick="app.selectLeatherSwatch(this)" aria-label="Couro negro"></button>
+            <button type="button" class="swatch-btn" style="background:linear-gradient(135deg, #583f06, #996e0a);" data-gradient="linear-gradient(135deg, #583f06, #996e0a)" data-accent="#fbbf24" onclick="app.selectLeatherSwatch(this)" aria-label="Couro ouro"></button>
           </div>
         </div>
       </div>
@@ -425,7 +426,7 @@
     <div class="luxury-modal-window">
       <div class="modal-head">
         <h3><span>🎨</span> 40 Temas & Estéticas Sacras de Luxo</h3>
-        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-themes')">✕</button>
+        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-themes')" aria-label="Fechar">✕</button>
       </div>
       <div class="modal-body">
         <div id="themes-grid-container" class="catalog-grid"></div>
@@ -441,7 +442,7 @@
     <div class="luxury-modal-window">
       <div class="modal-head">
         <h3><span>🎙️</span> 10 Vozes Femininas Especialistas</h3>
-        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-voices')">✕</button>
+        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-voices')" aria-label="Fechar">✕</button>
       </div>
       <div class="modal-body">
         <div id="voices-grid-container" class="catalog-grid"></div>
@@ -457,7 +458,7 @@
     <div class="luxury-modal-window">
       <div class="modal-head">
         <h3><span>✨</span> Logos AI: Teologia & Exegese Sagrada</h3>
-        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-logos-ai')">✕</button>
+        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-logos-ai')" aria-label="Fechar">✕</button>
       </div>
       <div id="logos-ai-body" class="modal-body"></div>
       <div class="modal-foot">
@@ -472,7 +473,7 @@
     <div class="luxury-modal-window">
       <div class="modal-head">
         <h3><span>⚙️</span> Configurações de Leitura & Som Devocional</h3>
-        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-settings')">✕</button>
+        <button class="gold-btn gold-btn-icon" onclick="app.closeModal('modal-settings')" aria-label="Fechar">✕</button>
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -483,6 +484,18 @@
             <button class="gold-btn" onclick="soundEngine.setAmbience('sinos')">🔔 Sinos do Templo</button>
             <button class="gold-btn" onclick="soundEngine.setAmbience('santuario')">🕊️ Santuário Sereno</button>
           </div>
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+          <label class="form-label">Backup da Biblioteca (JSON)</label>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <button class="gold-btn" onclick="app.exportBackup()">⬇️ Exportar Backup</button>
+            <label class="gold-btn" style="cursor:pointer; text-align:center;">
+              ⬆️ Importar Backup
+              <input type="file" accept=".json,application/json" style="display:none;" onchange="app.importBackup(event)">
+            </label>
+          </div>
+          <p style="font-size:11.5px; color:var(--text-muted); margin-top:6px;">Salve os metadados das suas 27 bíblias. Os PDFs precisam ser reanexados após importar.</p>
         </div>
 
         <div class="form-group" style="margin-top:20px;">
@@ -498,29 +511,29 @@
 
   <!-- Barra de Navegação Inferior Mobile -->
   <nav class="mobile-tab-shelf">
-    <button class="tab-shelf-btn active" onclick="app.closeReader(); window.scrollTo({top:0, behavior:'smooth'})">
+    <button class="tab-shelf-btn active" onclick="app.closeReader(); window.scrollTo({top:0, behavior:'smooth'})" aria-label="Ir para estante">
       <span style="font-size:18px;">📚</span>
       <span>Estante</span>
     </button>
-    <button class="tab-shelf-btn" onclick="app.openLastActiveBible()">
+    <button class="tab-shelf-btn" onclick="app.openLastActiveBible()" aria-label="Abrir leitor PDF">
       <span style="font-size:18px;">📖</span>
       <span>Leitor PDF</span>
     </button>
-    <button class="tab-shelf-btn" onclick="app.openLogosAI()">
+    <button class="tab-shelf-btn" onclick="app.openLogosAI()" aria-label="Abrir Logos AI">
       <span style="font-size:18px;">✨</span>
       <span>Logos AI</span>
     </button>
-    <button class="tab-shelf-btn" onclick="app.openModal('modal-voices')">
+    <button class="tab-shelf-btn" onclick="app.openModal('modal-voices')" aria-label="Escolher voz">
       <span style="font-size:18px;">🎙️</span>
       <span>10 Vozes</span>
     </button>
-    <button class="tab-shelf-btn" onclick="app.openModal('modal-themes')">
+    <button class="tab-shelf-btn" onclick="app.openModal('modal-themes')" aria-label="Escolher tema">
       <span style="font-size:18px;">🎨</span>
       <span>40 Temas</span>
     </button>
   </nav>
 
-  <div id="luxury-toast" class="luxury-toast"></div>
+  <div id="luxury-toast" class="luxury-toast" role="status" aria-live="polite"></div>
 
 </div>
 
@@ -541,6 +554,7 @@ class LuxuryIndexedDB {
   }
   async saveSlot(slotData) {
     const db = await this.getDB();
+    if (!db) return false;
     return new Promise(res => {
       const tx = db.transaction("slots", "readwrite");
       tx.objectStore("slots").put(slotData);
@@ -550,6 +564,7 @@ class LuxuryIndexedDB {
   }
   async getSlot(index) {
     const db = await this.getDB();
+    if (!db) return null;
     return new Promise(res => {
       const tx = db.transaction("slots", "readonly");
       const r = tx.objectStore("slots").get(index);
@@ -559,6 +574,7 @@ class LuxuryIndexedDB {
   }
   async getAllSlots() {
     const db = await this.getDB();
+    if (!db) return [];
     return new Promise(res => {
       const tx = db.transaction("slots", "readonly");
       const r = tx.objectStore("slots").getAll();
@@ -568,10 +584,12 @@ class LuxuryIndexedDB {
   }
   async clearAll() {
     const db = await this.getDB();
+    if (!db) return false;
     return new Promise(res => {
       const tx = db.transaction("slots", "readwrite");
       tx.objectStore("slots").clear();
       tx.oncomplete = () => res(true);
+      tx.onerror = () => res(false);
     });
   }
 }
@@ -581,6 +599,7 @@ const db = new LuxuryIndexedDB();
 class SacredSoundEngine {
   constructor() {
     this.ctx = null;
+    this.gain = null;
     this.muted = JSON.parse(localStorage.getItem("mb_sound_muted") || "true");
     this.mode = localStorage.getItem("mb_sound_mode") || "harpa";
     this.timer = null;
@@ -588,12 +607,14 @@ class SacredSoundEngine {
   init() {
     if (!this.ctx) {
       const Audio = window.AudioContext || window.webkitAudioContext;
+      if (!Audio) return false;
       this.ctx = new Audio();
       this.gain = this.ctx.createGain();
       this.gain.gain.value = this.muted ? 0 : 0.25;
       this.gain.connect(this.ctx.destination);
     }
     if (this.ctx.state === "suspended") this.ctx.resume();
+    return true;
   }
   playTone(freq, dur = 2.4) {
     if (!this.ctx || this.muted) return;
@@ -612,6 +633,7 @@ class SacredSoundEngine {
     localStorage.setItem("mb_sound_muted", JSON.stringify(this.muted));
     if (this.gain) this.gain.gain.value = this.muted ? 0 : 0.25;
     if (!this.muted && !this.timer) this.startLoop();
+    if (this.muted && this.timer) { clearInterval(this.timer); this.timer = null; }
     return this.muted;
   }
   setAmbience(m) {
@@ -619,6 +641,7 @@ class SacredSoundEngine {
     app.toast(`Harmonia ativada: ${m}`);
   }
   startLoop() {
+    if (this.timer) return;
     const scales = [261.6, 293.6, 329.6, 392.0, 440.0, 523.2];
     this.timer = setInterval(() => {
       if (this.muted) return;
@@ -647,17 +670,18 @@ const FEMALE_VOICES = [
 
 class VoiceEngine {
   constructor() {
-    this.synth = window.speechSynthesis;
+    this.synth = window.speechSynthesis || null;
     this.selectedId = localStorage.getItem("mb_selected_voice") || "sara";
   }
   getProfile(id) { return FEMALE_VOICES.find(v => v.id === id) || FEMALE_VOICES[0]; }
   getPtFemaleVoice() {
-    const list = this.synth ? this.synth.getVoices() : [];
-    const pt = list.filter(v => v.lang.startsWith("pt"));
+    if (!this.synth) return null;
+    const list = this.synth.getVoices() || [];
+    const pt = list.filter(v => v.lang && v.lang.toLowerCase().startsWith("pt"));
     return pt.find(v => /maria|luciana|francisca|female|mulher|google português/i.test(v.name)) || pt[0] || list[0] || null;
   }
   preview(id) {
-    if (!this.synth) return;
+    if (!this.synth) { app.toast("Síntese de voz não suportada neste navegador."); return; }
     this.synth.cancel();
     const p = this.getProfile(id);
     const u = new SpeechSynthesisUtterance(p.preview);
@@ -667,7 +691,7 @@ class VoiceEngine {
     this.synth.speak(u);
   }
   speak(text) {
-    if (!this.synth) return;
+    if (!this.synth) { app.toast("Síntese de voz não suportada neste navegador."); return; }
     this.synth.cancel();
     const p = this.getProfile(this.selectedId);
     const u = new SpeechSynthesisUtterance(text);
@@ -681,7 +705,48 @@ class VoiceEngine {
 const voiceEngine = new VoiceEngine();
 
 // 4. OS 40 TEMAS DE LUXO
-const LUXURY_THEMES = [["ouro-real", "1. Ouro Real & Couro Nobre", "#0b0c10", "#13161f", "#1c212f", "#f6f4ee", "#d4af37", "#f3e5ab"], ["meia-noite", "2. Meia-Noite Sagrada", "#060914", "#0b1226", "#111c3c", "#e0e7ff", "#38bdf8", "#fbbf24"], ["pergaminho", "3. Pergaminho Bíblico de Luxo", "#f5eee1", "#fbf6ed", "#ffffff", "#2c221a", "#8b5a2b", "#b8860b"], ["esmeralda", "4. Esmeralda do Templo", "#051610", "#0a261c", "#103829", "#e6f5ee", "#10b981", "#fbbf24"], ["purpura", "5. Púrpura Real Bizantina", "#12081d", "#1f0e30", "#2c1544", "#f5e8ff", "#c084fc", "#f59e0b"], ["ceu-siao", "6. Céu de Sião Alabastro", "#f0f6ff", "#ffffff", "#e0edfe", "#0a1e36", "#0284c7", "#0ea5e9"], ["rosa-sarom", "7. Rosa de Sarom Imperial", "#190a10", "#29111c", "#3a1928", "#ffe4e9", "#f43f5e", "#fbcfe8"], ["carvalho", "8. Carvalho de Manre", "#14150e", "#202317", "#2e3222", "#f4f3ea", "#a3b18a", "#ddb892"], ["monte-sinai", "9. Monte Sinai Terracota", "#1c110c", "#2b1b14", "#3c251c", "#fbeae3", "#e07a5f", "#f4a261"], ["mar-galileia", "10. Mar da Galileia Profundo", "#04131b", "#08202d", "#0c2c3e", "#e0f2fe", "#06b6d4", "#38bdf8"], ["soli-deo", "11. Soli Deo Gloria (Ouro Puro)", "#fafafa", "#ffffff", "#f4f4f5", "#18181b", "#ca8a04", "#eab308"], ["neve-hermom", "12. Neve do Monte Hermom", "#f8fafc", "#ffffff", "#f1f5f9", "#0f172a", "#64748b", "#94a3b8"], ["basalto-oled", "13. Basalto OLED Negro Absoluto", "#000000", "#080808", "#121212", "#f8fafc", "#eab308", "#f59e0b"], ["amendoeira", "14. Flor da Amendoeira", "#191114", "#26191f", "#35232b", "#fdf2f8", "#ec4899", "#f472b6"], ["cedro-libano", "15. Cedros do Líbano", "#0a140c", "#122115", "#1a301f", "#eaf5ec", "#22c55e", "#b45309"], ["lapis-lazuli", "16. Lápis-Lazúli Real", "#0a0e24", "#10183b", "#182352", "#eef2ff", "#4f46e5", "#fbbf24"], ["mirra-ambar", "17. Mirra, Incenso & Âmbar", "#15100c", "#241c15", "#33271e", "#fcf5ee", "#d97706", "#f59e0b"], ["manha-eden", "18. Manhã no Jardim do Éden", "#0a1613", "#112520", "#18352e", "#ecfdf5", "#14b8a6", "#84cc16"], ["rocha-eterna", "19. Rocha Eterna de Israel", "#101114", "#1b1c21", "#25272e", "#f1f5f9", "#94a3b8", "#cbd5e1"], ["alvorecer", "20. Alvorecer da Ressurreição", "#170d13", "#25161f", "#341f2c", "#fff1f2", "#fb7185", "#fdba74"], ["arca-alianca", "21. Bronze da Arca da Aliança", "#16110a", "#261d12", "#35291a", "#fdf8ee", "#b45309", "#f59e0b"], ["veu-templo", "22. Véu Escarlate do Santuário", "#180608", "#270a0e", "#370f14", "#fef2f2", "#dc2626", "#f87171"], ["estrela-davi", "23. Estrela de Davi Celestial", "#060c19", "#0d172e", "#132142", "#e0f2fe", "#2563eb", "#38bdf8"], ["mana-celeste", "24. Maná Celeste & Mel", "#fbf8f0", "#ffffff", "#f6eed9", "#312413", "#d97706", "#b45309"], ["getsemani", "25. Noite no Getsêmani", "#0a0f0e", "#121917", "#1a2422", "#e2e8f0", "#5eead4", "#94a3b8"], ["fogo-pentecost", "26. Fogo Pentecostal Vivo", "#170804", "#250f07", "#35160a", "#fff7ed", "#ea580c", "#fbbf24"], ["aguas-jordao", "27. Águas Vivas do Jordão", "#041417", "#082126", "#0d2f37", "#ecfeff", "#0891b2", "#22d3ee"], ["torre-vigia", "28. Torre de Vigia Neônica", "#07080d", "#0e111a", "#151926", "#f8fafc", "#00f0ff", "#3b82f6"], ["perola-valor", "29. Pérola de Grande Valor", "#f4f2f6", "#ffffff", "#eae5ef", "#241a2e", "#8b5cf6", "#a855f7"], ["veredas-antigas", "30. Veredas Antigas de Couro", "#17120e", "#251d17", "#342920", "#f7f1eb", "#a2673d", "#d4a373"], ["monastico", "31. Silêncio Monástico", "#f7f8f9", "#ffffff", "#e7ebef", "#1e2226", "#495057", "#343a40"], ["calice-alianca", "32. Cálice da Nova Aliança", "#16050b", "#240812", "#340c1a", "#fdf2f6", "#9f1239", "#fda4af"], ["luz-do-mundo", "33. Luz do Mundo Solar", "#fffdf9", "#ffffff", "#fef1be", "#421802", "#f59e0b", "#d97706"], ["fonte-viva", "34. Fonte de Águas Vivas", "#041119", "#091c28", "#0f2839", "#e0f7fa", "#0284c7", "#38bdf8"], ["tabernaculo", "35. Tabernáculo no Deserto", "#16130d", "#252016", "#342d20", "#f9f6ef", "#ca8a04", "#eab308"], ["aurora-gloria", "36. Aurora Cósmica da Glória", "#070311", "#100820", "#1a0d33", "#f5f3ff", "#8b5cf6", "#10b981"], ["leao-de-juda", "37. Leão Majestoso de Judá", "#120c06", "#20150b", "#2e1f10", "#fef9f0", "#d97706", "#fbbf24"], ["sal-da-terra", "38. Sal da Terra & Giz", "#eff2f5", "#ffffff", "#e1e6eb", "#1b2430", "#3b82f6", "#2563eb"], ["vinha-verdadeira", "39. A Vinha Verdadeira", "#0f0814", "#1a0e22", "#251431", "#f5f3ff", "#7c3aed", "#10b981"], ["alfa-omega", "40. Alfa e Ômega (Monocromo)", "#080808", "#101010", "#181818", "#ffffff", "#ffffff", "#cccccc"]].map(([id,name,base,surf,elev,text,prim,acc]) => ({id,name,base,surf,elev,text,prim,acc}));
+const LUXURY_THEMES = [
+  ["ouro-real", "1. Ouro Real & Couro Nobre", "#0b0c10", "#13161f", "#1c212f", "#f6f4ee", "#d4af37", "#f3e5ab"],
+  ["meia-noite", "2. Meia-Noite Sagrada", "#060914", "#0b1226", "#111c3c", "#e0e7ff", "#38bdf8", "#fbbf24"],
+  ["pergaminho", "3. Pergaminho Bíblico de Luxo", "#f5eee1", "#fbf6ed", "#ffffff", "#2c221a", "#8b5a2b", "#b8860b"],
+  ["esmeralda", "4. Esmeralda do Templo", "#051610", "#0a261c", "#103829", "#e6f5ee", "#10b981", "#fbbf24"],
+  ["purpura", "5. Púrpura Real Bizantina", "#12081d", "#1f0e30", "#2c1544", "#f5e8ff", "#c084fc", "#f59e0b"],
+  ["ceu-siao", "6. Céu de Sião Alabastro", "#f0f6ff", "#ffffff", "#e0edfe", "#0a1e36", "#0284c7", "#0ea5e9"],
+  ["rosa-sarom", "7. Rosa de Sarom Imperial", "#190a10", "#29111c", "#3a1928", "#ffe4e9", "#f43f5e", "#fbcfe8"],
+  ["carvalho", "8. Carvalho de Manre", "#14150e", "#202317", "#2e3222", "#f4f3ea", "#a3b18a", "#ddb892"],
+  ["monte-sinai", "9. Monte Sinai Terracota", "#1c110c", "#2b1b14", "#3c251c", "#fbeae3", "#e07a5f", "#f4a261"],
+  ["mar-galileia", "10. Mar da Galileia Profundo", "#04131b", "#08202d", "#0c2c3e", "#e0f2fe", "#06b6d4", "#38bdf8"],
+  ["soli-deo", "11. Soli Deo Gloria (Ouro Puro)", "#fafafa", "#ffffff", "#f4f4f5", "#18181b", "#ca8a04", "#eab308"],
+  ["neve-hermom", "12. Neve do Monte Hermom", "#f8fafc", "#ffffff", "#f1f5f9", "#0f172a", "#64748b", "#94a3b8"],
+  ["basalto-oled", "13. Basalto OLED Negro Absoluto", "#000000", "#080808", "#121212", "#f8fafc", "#eab308", "#f59e0b"],
+  ["amendoeira", "14. Flor da Amendoeira", "#191114", "#26191f", "#35232b", "#fdf2f8", "#ec4899", "#f472b6"],
+  ["cedro-libano", "15. Cedros do Líbano", "#0a140c", "#122115", "#1a301f", "#eaf5ec", "#22c55e", "#b45309"],
+  ["lapis-lazuli", "16. Lápis-Lazúli Real", "#0a0e24", "#10183b", "#182352", "#eef2ff", "#4f46e5", "#fbbf24"],
+  ["mirra-ambar", "17. Mirra, Incenso & Âmbar", "#15100c", "#241c15", "#33271e", "#fcf5ee", "#d97706", "#f59e0b"],
+  ["manha-eden", "18. Manhã no Jardim do Éden", "#0a1613", "#112520", "#18352e", "#ecfdf5", "#14b8a6", "#84cc16"],
+  ["rocha-eterna", "19. Rocha Eterna de Israel", "#101114", "#1b1c21", "#25272e", "#f1f5f9", "#94a3b8", "#cbd5e1"],
+  ["alvorecer", "20. Alvorecer da Ressurreição", "#170d13", "#25161f", "#341f2c", "#fff1f2", "#fb7185", "#fdba74"],
+  ["arca-alianca", "21. Bronze da Arca da Aliança", "#16110a", "#261d12", "#35291a", "#fdf8ee", "#b45309", "#f59e0b"],
+  ["veu-templo", "22. Véu Escarlate do Santuário", "#180608", "#270a0e", "#370f14", "#fef2f2", "#dc2626", "#f87171"],
+  ["estrela-davi", "23. Estrela de Davi Celestial", "#060c19", "#0d172e", "#132142", "#e0f2fe", "#2563eb", "#38bdf8"],
+  ["mana-celeste", "24. Maná Celeste & Mel", "#fbf8f0", "#ffffff", "#f6eed9", "#312413", "#d97706", "#b45309"],
+  ["getsemani", "25. Noite no Getsêmani", "#0a0f0e", "#121917", "#1a2422", "#e2e8f0", "#5eead4", "#94a3b8"],
+  ["fogo-pentecost", "26. Fogo Pentecostal Vivo", "#170804", "#250f07", "#35160a", "#fff7ed", "#ea580c", "#fbbf24"],
+  ["aguas-jordao", "27. Águas Vivas do Jordão", "#041417", "#082126", "#0d2f37", "#ecfeff", "#0891b2", "#22d3ee"],
+  ["torre-vigia", "28. Torre de Vigia Neônica", "#07080d", "#0e111a", "#151926", "#f8fafc", "#00f0ff", "#3b82f6"],
+  ["perola-valor", "29. Pérola de Grande Valor", "#f4f2f6", "#ffffff", "#eae5ef", "#241a2e", "#8b5cf6", "#a855f7"],
+  ["veredas-antigas", "30. Veredas Antigas de Couro", "#17120e", "#251d17", "#342920", "#f7f1eb", "#a2673d", "#d4a373"],
+  ["monastico", "31. Silêncio Monástico", "#f7f8f9", "#ffffff", "#e7ebef", "#1e2226", "#495057", "#343a40"],
+  ["calice-alianca", "32. Cálice da Nova Aliança", "#16050b", "#240812", "#340c1a", "#fdf2f6", "#9f1239", "#fda4af"],
+  ["luz-do-mundo", "33. Luz do Mundo Solar", "#fffdf9", "#ffffff", "#fef1be", "#421802", "#f59e0b", "#d97706"],
+  ["fonte-viva", "34. Fonte de Águas Vivas", "#041119", "#091c28", "#0f2839", "#e0f7fa", "#0284c7", "#38bdf8"],
+  ["tabernaculo", "35. Tabernáculo no Deserto", "#16130d", "#252016", "#342d20", "#f9f6ef", "#ca8a04", "#eab308"],
+  ["aurora-gloria", "36. Aurora Cósmica da Glória", "#070311", "#100820", "#1a0d33", "#f5f3ff", "#8b5cf6", "#10b981"],
+  ["leao-de-juda", "37. Leão Majestoso de Judá", "#120c06", "#20150b", "#2e1f10", "#fef9f0", "#d97706", "#fbbf24"],
+  ["sal-da-terra", "38. Sal da Terra & Giz", "#eff2f5", "#ffffff", "#e1e6eb", "#1b2430", "#3b82f6", "#2563eb"],
+  ["vinha-verdadeira", "39. A Vinha Verdadeira", "#0f0814", "#1a0e22", "#251431", "#f5f3ff", "#7c3aed", "#10b981"],
+  ["alfa-omega", "40. Alfa e Ômega (Monocromo)", "#080808", "#101010", "#181818", "#ffffff", "#ffffff", "#cccccc"]
+].map(([id,name,base,surf,elev,text,prim,acc]) => ({id,name,base,surf,elev,text,prim,acc}));
 
 // 5. CONTROLADOR PRINCIPAL
 class MasterpieceApp {
@@ -704,6 +769,13 @@ class MasterpieceApp {
     this.renderVoicesModal();
     this.checkRobotTracker();
     this.updateSoundButtonUI();
+    document.getElementById("active-voice-name").textContent = voiceEngine.getProfile(voiceEngine.selectedId).name;
+
+    // Inicia o loop sonoro se o usuário deixou o som ligado na última sessão
+    if (!soundEngine.muted) {
+      soundEngine.init();
+      soundEngine.startLoop();
+    }
   }
 
   applyTheme(id) {
@@ -723,6 +795,11 @@ class MasterpieceApp {
     if (this.autoPaperMode) {
       this.syncAutoPaperWithTheme(t);
     }
+
+    // Reaplica marcação visual do tema ativo no modal
+    document.querySelectorAll("#themes-grid-container .catalog-item-card").forEach(el => {
+      el.classList.toggle("active", el.dataset.themeId === id);
+    });
   }
 
   async loadSlots() {
@@ -836,6 +913,20 @@ class MasterpieceApp {
     document.getElementById("edit-file-current").textContent = s.hasPdf ? `PDF Atual: ${s.fileName}` : "";
     document.getElementById("edit-pdf-file").value = "";
 
+    // Restaura visualmente o swatch de couro correspondente ao slot atual
+    const swatches = document.querySelectorAll(".swatch-btn");
+    let matched = false;
+    swatches.forEach(btn => {
+      btn.classList.remove("active");
+      if (!matched && btn.dataset.gradient === s.gradient && btn.dataset.accent === s.accent) {
+        btn.classList.add("active");
+        matched = true;
+      }
+    });
+    if (!matched && swatches.length > 0) {
+      swatches[0].classList.add("active");
+    }
+
     this.openModal("modal-edit-bible");
   }
 
@@ -845,15 +936,16 @@ class MasterpieceApp {
   }
 
   async saveCustomBible() {
-    const slotIdx = parseInt(document.getElementById("edit-slot-index").value);
+    const slotIdx = parseInt(document.getElementById("edit-slot-index").value, 10);
     const title = document.getElementById("edit-bible-title").value.trim() || `Bíblia Slot ${slotIdx}`;
     const sigla = (document.getElementById("edit-bible-sigla").value.trim() || title.substring(0, 4)).toUpperCase();
     const fileInput = document.getElementById("edit-pdf-file");
     const activeSwatch = document.querySelector(".swatch-btn.active");
-    const gradient = activeSwatch.dataset.gradient;
-    const accent = activeSwatch.dataset.accent;
+    const gradient = activeSwatch ? activeSwatch.dataset.gradient : "linear-gradient(135deg, #271406, #592e0c)";
+    const accent = activeSwatch ? activeSwatch.dataset.accent : "#d97706";
 
     let s = this.slots.find(x => x.slotIndex === slotIdx);
+    if (!s) return;
     s.title = title;
     s.sigla = sigla;
     s.gradient = gradient;
@@ -873,14 +965,16 @@ class MasterpieceApp {
   }
 
   async removeBibleFromSlot() {
-    const slotIdx = parseInt(document.getElementById("edit-slot-index").value);
+    const slotIdx = parseInt(document.getElementById("edit-slot-index").value, 10);
     let s = this.slots.find(x => x.slotIndex === slotIdx);
+    if (!s) return;
     s.hasPdf = false;
     s.fileName = "";
     s.blob = null;
     s.title = `Slot ${slotIdx.toString().padStart(2, '0')}`;
     s.sigla = `B${slotIdx}`;
     s.progress = 0;
+    s.page = 1;
     await db.saveSlot(s);
     this.closeModal("modal-edit-bible");
     this.renderLibrary();
@@ -889,7 +983,10 @@ class MasterpieceApp {
 
   async openPdfReader(slotIndex) {
     const s = this.slots.find(x => x.slotIndex === slotIndex);
-    if (!s || !s.hasPdf) return;
+    if (!s || !s.hasPdf || !s.blob) {
+      this.toast("PDF não disponível. Adicione o arquivo novamente.");
+      return;
+    }
 
     this.activeSlot = s;
     document.getElementById("kindle-bible-name").textContent = s.title;
@@ -926,13 +1023,21 @@ class MasterpieceApp {
 
   closeReader() {
     voiceEngine.stop();
+    // Revoga a Blob URL para evitar vazamento de memória
+    if (this.activeBlobUrl) {
+      URL.revokeObjectURL(this.activeBlobUrl);
+      this.activeBlobUrl = null;
+    }
+    const frame = document.getElementById("pdf-viewer-frame");
+    if (frame) frame.src = "about:blank";
     document.getElementById("reader-screen").classList.remove("active");
   }
 
-  setPdfPaper(type) {
+  setPdfPaper(type, btnEl) {
     this.pdfPaper = type;
     const r = document.documentElement;
     document.querySelectorAll(".paper-filter-btn").forEach(b => b.classList.remove("active"));
+    if (btnEl) btnEl.classList.add("active");
 
     if (type === "white") {
       r.style.setProperty("--pdf-filter", "none");
@@ -956,11 +1061,12 @@ class MasterpieceApp {
 
     if (this.autoPaperMode) {
       const hour = new Date().getHours();
-      if (hour >= 19 || hour < 6) this.setPdfPaper("oled");
-      else this.setPdfPaper("ivory");
+      const type = (hour >= 19 || hour < 6) ? "oled" : "ivory";
+      const selector = `.paper-filter-btn[title="${type === 'oled' ? 'Basalto Noturno OLED' : 'Papel Marfim'}"]`;
+      this.setPdfPaper(type, document.querySelector(selector));
       this.toast("Modo de papel automático ativado pelo horário!");
     } else {
-      this.setPdfPaper("white");
+      this.setPdfPaper("white", document.querySelector('.paper-filter-btn[title="Luz Pura"]'));
     }
   }
 
@@ -1021,7 +1127,9 @@ class MasterpieceApp {
   }
 
   speakLogosAI() {
-    const text = document.getElementById("logos-ai-body").innerText;
+    const body = document.getElementById("logos-ai-body");
+    if (!body) return;
+    const text = body.innerText;
     this.toast(`Logos AI: Lendo com a voz de ${voiceEngine.getProfile(voiceEngine.selectedId).name}...`);
     voiceEngine.speak(text);
   }
@@ -1045,7 +1153,7 @@ class MasterpieceApp {
 
   organizerBotSort(type) {
     if (type === "name") {
-      this.slots.sort((a, b) => a.title.localeCompare(b.title));
+      this.slots.sort((a, b) => a.title.localeCompare(b.title, 'pt-BR'));
       this.toast("Bot Organizador: Estante organizada em ordem alfabética A-Z!");
     } else if (type === "recent") {
       this.slots.sort((a, b) => (b.hasPdf ? 1 : 0) - (a.hasPdf ? 1 : 0));
@@ -1063,7 +1171,7 @@ class MasterpieceApp {
 
   renderThemesModal() {
     document.getElementById("themes-grid-container").innerHTML = LUXURY_THEMES.map(t => `
-      <div class="catalog-item-card ${t.id === this.currentTheme ? 'active' : ''}" onclick="app.applyTheme('${t.id}')">
+      <div class="catalog-item-card ${t.id === this.currentTheme ? 'active' : ''}" data-theme-id="${t.id}" onclick="app.applyTheme('${t.id}')">
         <div class="theme-color-ribbon">
           <span style="background:${t.base};"></span>
           <span style="background:${t.surf};"></span>
@@ -1091,9 +1199,12 @@ class MasterpieceApp {
   }
 
   setVoice(id) {
-    voiceEngine.selectedId = id; localStorage.setItem("mb_selected_voice", id);
-    document.querySelectorAll(".catalog-item-card").forEach(el => el.classList.remove("active"));
-    const sel = document.getElementById(`voice-item-${id}`); if (sel) sel.classList.add("active");
+    voiceEngine.selectedId = id;
+    localStorage.setItem("mb_selected_voice", id);
+    // Escopo restrito ao container de vozes para não afetar o modal de temas
+    document.querySelectorAll("#voices-grid-container .catalog-item-card").forEach(el => el.classList.remove("active"));
+    const sel = document.getElementById(`voice-item-${id}`);
+    if (sel) sel.classList.add("active");
     document.getElementById("active-voice-name").textContent = voiceEngine.getProfile(id).name;
     this.toast(`Voz feminina '${voiceEngine.getProfile(id).name}' ativada!`);
   }
@@ -1106,7 +1217,75 @@ class MasterpieceApp {
 
   updateSoundButtonUI() {
     const btn = document.getElementById("ambient-sound-btn");
+    if (!btn) return;
     btn.classList.toggle("gold-btn-primary", !soundEngine.muted);
+  }
+
+  async exportBackup() {
+    try {
+      const data = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        theme: this.currentTheme,
+        voice: voiceEngine.selectedId,
+        slots: this.slots.map(s => ({
+          slotIndex: s.slotIndex,
+          title: s.title,
+          sigla: s.sigla,
+          gradient: s.gradient,
+          accent: s.accent,
+          hasPdf: s.hasPdf,
+          fileName: s.fileName || "",
+          page: s.page || 1,
+          progress: s.progress || 0
+        }))
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `minhas-biblias-backup-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 500);
+      this.toast("Backup exportado com sucesso!");
+    } catch (e) {
+      this.toast("Falha ao exportar backup.");
+    }
+  }
+
+  async importBackup(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!data || !Array.isArray(data.slots)) throw new Error("Formato inválido");
+
+      for (const imported of data.slots) {
+        const existing = this.slots.find(s => s.slotIndex === imported.slotIndex);
+        if (!existing) continue;
+        existing.title = imported.title || existing.title;
+        existing.sigla = imported.sigla || existing.sigla;
+        existing.gradient = imported.gradient || existing.gradient;
+        existing.accent = imported.accent || existing.accent;
+        existing.page = imported.page || 1;
+        existing.progress = imported.progress || 0;
+        // PDFs NÃO são importados (blobs são locais). Só metadados.
+        // Se já existir PDF no slot atual, mantém.
+        await db.saveSlot(existing);
+      }
+      if (data.theme) this.applyTheme(data.theme);
+      if (data.voice) this.setVoice(data.voice);
+      this.renderLibrary();
+      this.renderThemesModal();
+      this.toast("Backup importado! Reanexe os PDFs manualmente.");
+    } catch (e) {
+      this.toast("Arquivo de backup inválido.");
+    } finally {
+      event.target.value = "";
+    }
   }
 
   async resetAllShelves() {
@@ -1119,23 +1298,35 @@ class MasterpieceApp {
     }
   }
 
-  openModal(id) { document.getElementById(id).classList.add("active"); }
-  closeModal(id) { document.getElementById(id).classList.remove("active"); }
+  openModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("active");
+  }
+  closeModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("active");
+  }
 
   toast(msg) {
     const t = document.getElementById("luxury-toast");
-    t.textContent = msg; t.classList.add("show");
-    setTimeout(() => t.classList.remove("show"), 3000);
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => t.classList.remove("show"), 3000);
   }
 }
 
 const app = new MasterpieceApp();
 window.addEventListener("DOMContentLoaded", () => {
   app.init();
-  document.getElementById("shelf-search").addEventListener("input", e => {
-    app.searchQuery = e.target.value;
-    app.renderLibrary();
-  });
+  const searchEl = document.getElementById("shelf-search");
+  if (searchEl) {
+    searchEl.addEventListener("input", e => {
+      app.searchQuery = e.target.value;
+      app.renderLibrary();
+    });
+  }
   document.querySelectorAll(".luxury-modal-overlay").forEach(m => {
     m.addEventListener("click", e => { if (e.target === m) m.classList.remove("active"); });
   });
